@@ -11,5 +11,21 @@ type RootState = {
   auth: AuthState
 }
 
+type LoginFormValues = {
+  username: string
+  password: string
+}
 
-export type {User, AuthState, RootState} 
+
+
+type ThemeState = {
+  mode: 'dark' | 'light'
+}
+
+
+type GlobalState = {
+  auth: AuthState
+  theme: ThemeState
+}
+
+export type { User, AuthState, RootState, LoginFormValues, ThemeState, GlobalState }

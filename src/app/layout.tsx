@@ -1,5 +1,9 @@
+'use client'
 import './globals.css'
 import { Providers } from './providers'
+// import { useSelector } from 'react-redux';
+// import { GlobalState } from '@/types/types';
+import Navbar from '@/components/Navbar'
 // import type { Metadata } from 'next'
 // import { Inter } from 'next/font/google'
 
@@ -15,10 +19,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  // const themeMode = useSelector((state: GlobalState) => state.theme.mode);
   return (
-    <html lang="en" className='light'>
+    <html lang="en" className={`light bg-gradient-to-r from-[#FAFAFA] from-10% via-[#FFEDFA] via-30% via-[#FFDCF5] via-70% via-[#A2E9C1] via-80% to-[#FDEDD3]`}>
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          <Navbar/>
+          {children}
+        </Providers>
       </body>
     </html>
   )
