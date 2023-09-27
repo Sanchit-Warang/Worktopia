@@ -6,30 +6,33 @@ import {
   NavbarContent,
   NavbarItem,
   DropdownTrigger,
-  Link,
   Button,
   DropdownMenu,
   DropdownItem,
   Dropdown,
 } from '@nextui-org/react'
+import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faBuilding, faMoon } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faBuilding, faMoon, faSun } from '@fortawesome/free-solid-svg-icons'
 
 import { AcmeLogo } from '@/components/icons/AcmeLogo'
 
-import { useDispatch } from 'react-redux'
-import { toggleTheme } from '@/redux/features/theme/themeSlice'
 
-export default function App() {
-    const dispatch = useDispatch()
 
-   const handleThemeToggle = ():void => {
-    dispatch(toggleTheme())
+type Props = {
+  modeToggle: () => void
+  mode: 'light' | 'dark'
+}
+
+export default function Navvbar({modeToggle, mode}: Props) {
+    
+   const handleModeToggle = ():void => {
+    modeToggle()
    } 
 
   return (
     <Navbar shouldHideOnScroll>
-      <NavbarBrand>
+      <NavbarBrand as={Link} href='/'>
         <AcmeLogo />
         <p className="font-bold text-inherit">ACME</p>
       </NavbarBrand>
@@ -54,7 +57,9 @@ export default function App() {
         <Dropdown>
           <NavbarItem className="hidden lg:flex">
             <DropdownTrigger>
-              <Link href="#">Login</Link>
+              <Button variant='light'>
+              Login
+              </Button>
             </DropdownTrigger>
           </NavbarItem>
           <DropdownMenu
@@ -65,18 +70,22 @@ export default function App() {
             }}
           >
             <DropdownItem
+              // as={Link}
+              // href='/seeker-login'
               key="login"
               description="login as a seeker"
               startContent={<FontAwesomeIcon icon={faUser} beat />}
             >
-              Seeker Login
+              <Link href={'/seeker-login'}>Seeker Login</Link>
             </DropdownItem>
             <DropdownItem
+              // as={Link}
+              // herf='/temp' 
               key="organization-login"
               description="login as an organization"
               startContent={<FontAwesomeIcon icon={faBuilding} beat />}
             >
-              Organization Login
+              <Link href={'/temp'}>Organization Login</Link>
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
@@ -86,8 +95,8 @@ export default function App() {
           </Button>
         </NavbarItem>
         <NavbarItem>
-        <Button isIconOnly>
-           <FontAwesomeIcon icon={faMoon} />
+        <Button isIconOnly variant='light' onClick={handleModeToggle}>
+            {mode === 'dark' ? <FontAwesomeIcon icon={faSun} /> : <FontAwesomeIcon icon={faMoon} />}
         </Button> 
         </NavbarItem>
       </NavbarContent>

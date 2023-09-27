@@ -2,27 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    width: 100vw;
-    /* background-color: aqua; */
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  /* background-color: aqua; */
 }
 
-.bgt{
-    background-color: red
+.bgt {
+  background-color: red;
 }
 
-.Sidebar{
-    /* background-color: #1a202c; */
-    height: 91vh;
-    /* width: 20vw; */
-    margin: 0px;
-    border-radius: 0px;
-    /* box-shadow: 5px 5px 24px 4px #000000; */
-    /* position: fixed;
+.Sidebar {
+  /* background-color: #1a202c; */
+  height: 91vh;
+  /* width: 20vw; */
+  margin: 0px;
+  border-radius: 0px;
+  /* box-shadow: 5px 5px 24px 4px #000000; */
+  /* position: fixed;
     top: 0;
     left: 0;
     z-index: 1; */
+}
+
+.trial {
+  background: #0f0c29; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #24243e,
+    #302b63,
+    #0f0c29
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #24243e,
+    #302b63,
+    #0f0c29
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }

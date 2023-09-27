@@ -1,9 +1,10 @@
 'use client'
+import { useState } from 'react'
 import './globals.css'
 import { Providers } from './providers'
 // import { useSelector } from 'react-redux';
 // import { GlobalState } from '@/types/types';
-import Navbar from '@/components/Navbar'
+import Navvbar from '@/components/Navvbar'
 // import type { Metadata } from 'next'
 // import { Inter } from 'next/font/google'
 
@@ -19,12 +20,24 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // const themeMode = useSelector((state: GlobalState) => state.theme.mode);
+  
+  const [mode, setMode] = useState<'light' | 'dark'>('dark')
+
+  const modeToggle = ():void => {
+    setMode(mode === 'dark' ? 'light' : 'dark')
+  }
+
+  const background = {
+    // dark :'bg-gradient-to-r from-black to-purple-800 via-black via-20% to-gray-900 via-black via-60% to-blue-800 via-black via-40% to-emerald-800 via-black to-pink-800',
+    dark: 'trial',
+    light:'bg-gradient-to-r from-[#FAFAFA] from-10% via-[#FFEDFA] via-30% via-[#FFDCF5] via-70% via-[#A2E9C1] via-80% to-[#FDEDD3]'
+  }
+
   return (
-    <html lang="en" className={`light bg-gradient-to-r from-[#FAFAFA] from-10% via-[#FFEDFA] via-30% via-[#FFDCF5] via-70% via-[#A2E9C1] via-80% to-[#FDEDD3]`}>
+    <html lang="en" className={`${mode} ${background[mode]}`}>
       <body>
         <Providers>
-          <Navbar/>
+          <Navvbar modeToggle={modeToggle} mode={mode}/>
           {children}
         </Providers>
       </body>
