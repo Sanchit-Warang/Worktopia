@@ -2,7 +2,7 @@ import { apiSlice } from "@/redux/api/apiSlice";
 
 export const authApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
-        login: builder.mutation({
+        seekerLogin: builder.mutation({
             query: credentials => ({
                 url: '/account/organization/login',
                 method: 'POST',
@@ -13,5 +13,5 @@ export const authApiSlice = apiSlice.injectEndpoints({
 })
 
 export const {
-    useLoginMutation
+    useSeekerLoginMutation
 } = authApiSlice

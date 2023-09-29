@@ -10,7 +10,7 @@ import {
 } from '@nextui-org/react'
 
 import { useDispatch } from 'react-redux'
-import { useLoginMutation } from '@/redux/features/auth/authApiSlice'
+import { useSeekerLoginMutation } from '@/redux/features/auth/authApiSlice'
 import { setCredentials } from '@/redux/features/auth/authSlice'
 
 import { LoginFormValues } from '@/types/types'
@@ -19,11 +19,11 @@ import { LoginFormValues } from '@/types/types'
 
 const validate = (values: LoginFormValues) => {
   const errors: Partial<LoginFormValues> = {}
-  // if (!values.email) {
-  //   errors.email = 'Required'
-  // } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-  //   errors.email = 'Invalid email address'
-  // }
+  if (!values.email) {
+    errors.email = 'Required'
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+    errors.email = 'Invalid email address'
+  }
   // if (!values.password) {
   //   errors.password = 'Required'
   // } else if (values.password.length < 8) {
@@ -32,19 +32,24 @@ const validate = (values: LoginFormValues) => {
   return errors
 }
 
-const LoginForm = () => {
+type Props = { 
+  formType : 'seeker' | 'organization'
+}
+
+const LoginForm = ({formType}: Props) => {
   const dispatch = useDispatch()
-  const [login, { isLoading }] = useLoginMutation()
+  const [seekerLogin, { isLoading }] = useSeekerLoginMutation()
 
   const onSubmit = async (
     values: LoginFormValues,
     { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
   ) => {
-    const userData = await login(values).unwrap()
+    console.log(values)
+    const userData = await seekerLogin(values).unwrap()
     console.log(userData)
     dispatch(
       setCredentials({
-        user: null,
+        user: userData.user,
         accessToken: userData.access,
         refreshToken: userData.refresh,
       })
@@ -53,12 +58,12 @@ const LoginForm = () => {
   }
 
   return (
-    <Card isBlurred className="max-w-[500px] m-auto">
-      <CardHeader>Login Form</CardHeader>
+    <Card className="max-w-[500px] m-auto">
+      <CardHeader>{ formType === 'seeker' ? 'Seeker' : 'Organization' } Login Form</CardHeader>
       <Divider />
       <CardBody>
         <Formik
-          initialValues={{ username: 'link@gmail.com', password: 'link' }}
+          initialValues={{ email: 'link@gmail.com', password: 'link' }}
           validate={validate}
           onSubmit={onSubmit}
         >
@@ -76,15 +81,15 @@ const LoginForm = () => {
                 <Input
                   isClearable
                   type="text"
-                  name="username"
-                  label="username"
+                  name="email"
+                  label="Email"
                   placeholder="Enter your User Name"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.username}
-                  onClear={() => (values.username = '')}
-                  isInvalid={!!errors.username && touched.username}
-                  errorMessage={errors.username}
+                  value={values.email}
+                  onClear={() => (values.email = '')}
+                  isInvalid={!!errors.email && touched.email}
+                  errorMessage={errors.email}
                 />
                 {/* {errors.email && touched.email && errors.email} */}
               </div>

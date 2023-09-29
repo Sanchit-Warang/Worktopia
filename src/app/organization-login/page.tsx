@@ -4,7 +4,7 @@ import LoginForm from "@/components/LoginForm"
 const page = () => {
   return (
     <div className="m-auto mt-6">
-      <LoginForm formType="seeker" />
+      <LoginForm formType="organization"/>
     </div>
   )
 }

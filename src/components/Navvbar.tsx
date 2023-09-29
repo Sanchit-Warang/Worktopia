@@ -1,5 +1,7 @@
 'use client'
 
+// import { useClient } from 'next/client'
+
 import {
   Navbar,
   NavbarBrand,
@@ -13,26 +15,32 @@ import {
 } from '@nextui-org/react'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faBuilding, faMoon, faSun } from '@fortawesome/free-solid-svg-icons'
-
+import {
+  faUser,
+  faBuilding,
+  faMoon,
+  faSun,
+} from '@fortawesome/free-solid-svg-icons'
+import { useRouter } from 'next/navigation'
 import { AcmeLogo } from '@/components/icons/AcmeLogo'
-
-
+import next from 'next/types'
 
 type Props = {
   modeToggle: () => void
   mode: 'light' | 'dark'
 }
 
-export default function Navvbar({modeToggle, mode}: Props) {
-    
-   const handleModeToggle = ():void => {
+export default function Navvbar({ modeToggle, mode }: Props) {
+  // const client = useClient()
+
+  const router = useRouter()
+  const handleModeToggle = (): void => {
     modeToggle()
-   } 
+  }
 
   return (
     <Navbar shouldHideOnScroll>
-      <NavbarBrand as={Link} href='/'>
+      <NavbarBrand as={Link} href="/">
         <AcmeLogo />
         <p className="font-bold text-inherit">ACME</p>
       </NavbarBrand>
@@ -57,9 +65,7 @@ export default function Navvbar({modeToggle, mode}: Props) {
         <Dropdown>
           <NavbarItem className="hidden lg:flex">
             <DropdownTrigger>
-              <Button variant='light'>
-              Login
-              </Button>
+              <Button variant="light">Login</Button>
             </DropdownTrigger>
           </NavbarItem>
           <DropdownMenu
@@ -75,17 +81,19 @@ export default function Navvbar({modeToggle, mode}: Props) {
               key="login"
               description="login as a seeker"
               startContent={<FontAwesomeIcon icon={faUser} beat />}
+              onClick={() => router.replace('/seeker-login')}
             >
-              <Link href={'/seeker-login'}>Seeker Login</Link>
+              Seeker Login
             </DropdownItem>
             <DropdownItem
               // as={Link}
-              // herf='/temp' 
+              // herf='/temp'
               key="organization-login"
               description="login as an organization"
               startContent={<FontAwesomeIcon icon={faBuilding} beat />}
+              onClick={() => router.replace('/organization-login')}
             >
-              <Link href={'/temp'}>Organization Login</Link>
+              Organization Login
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
@@ -95,9 +103,13 @@ export default function Navvbar({modeToggle, mode}: Props) {
           </Button>
         </NavbarItem>
         <NavbarItem>
-        <Button isIconOnly variant='light' onClick={handleModeToggle}>
-            {mode === 'dark' ? <FontAwesomeIcon icon={faSun} /> : <FontAwesomeIcon icon={faMoon} />}
-        </Button> 
+          <Button isIconOnly variant="light" onClick={handleModeToggle}>
+            {mode === 'dark' ? (
+              <FontAwesomeIcon icon={faSun} />
+            ) : (
+              <FontAwesomeIcon icon={faMoon} />
+            )}
+          </Button>
         </NavbarItem>
       </NavbarContent>
     </Navbar>

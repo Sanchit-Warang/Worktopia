@@ -20,24 +20,28 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  
   const [mode, setMode] = useState<'light' | 'dark'>('dark')
 
-  const modeToggle = ():void => {
+  const modeToggle = (): void => {
     setMode(mode === 'dark' ? 'light' : 'dark')
   }
 
   const background = {
     // dark :'bg-gradient-to-r from-black to-purple-800 via-black via-20% to-gray-900 via-black via-60% to-blue-800 via-black via-40% to-emerald-800 via-black to-pink-800',
-    dark: 'trial',
-    light:'bg-gradient-to-r from-[#FAFAFA] from-10% via-[#FFEDFA] via-30% via-[#FFDCF5] via-70% via-[#A2E9C1] via-80% to-[#FDEDD3]'
+    dark: 'bg-gradient-to-br from-slate-900 via-blue-900 to-lime-700',
+    // light:'bg-gradient-to-r from-[#FAFAFA] from-10% via-[#FFEDFA] via-30% via-[#FFDCF5] via-70% via-[#A2E9C1] via-80% to-[#FDEDD3]'
+    light: 'bg-gradient-to-br from-slate-400 via-blue-400 to-lime-400',
   }
 
   return (
-    <html lang="en" className={`${mode} ${background[mode]}`}>
+    <html
+      lang="en"
+      className={`${mode} ${background[mode]}
+    `}
+    >
       <body>
         <Providers>
-          <Navvbar modeToggle={modeToggle} mode={mode}/>
+          <Navvbar modeToggle={modeToggle} mode={mode} />
           {children}
         </Providers>
       </body>
