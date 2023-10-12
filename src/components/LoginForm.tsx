@@ -8,9 +8,11 @@ import {
   Input,
   Button,
 } from '@nextui-org/react'
-
+import { useSelector } from 'react-redux'
+import { RootState } from '@/types/types'
+import { useRouter } from 'next/navigation'
 import { useDispatch } from 'react-redux'
-import { useSeekerLoginMutation } from '@/redux/features/auth/authApiSlice'
+import { useSeekerLoginMutation,  useOrgLoginMutation } from '@/redux/features/auth/authApiSlice'
 import { setCredentials } from '@/redux/features/auth/authSlice'
 
 import { LoginFormValues } from '@/types/types'
@@ -37,15 +39,37 @@ type Props = {
 }
 
 const LoginForm = ({formType}: Props) => {
+  const user = useSelector((state: RootState ) => {
+    if (state.auth.user) {
+      return state.auth.user
+    }
+    else {
+      return null
+    }
+  })
+  
+  const router = useRouter()
+  
+  if(user){
+    router.replace('/')
+  }
+
   const dispatch = useDispatch()
-  const [seekerLogin, { isLoading }] = useSeekerLoginMutation()
+  const [seekerLogin] = useSeekerLoginMutation()
+  const [orgLogin] = useOrgLoginMutation()
 
   const onSubmit = async (
     values: LoginFormValues,
     { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
   ) => {
     console.log(values)
-    const userData = await seekerLogin(values).unwrap()
+    let userData
+    if (formType === 'seeker') {
+      userData = await seekerLogin(values).unwrap()
+    }
+    else {
+      userData = await orgLogin(values).unwrap()
+    }
     console.log(userData)
     dispatch(
       setCredentials({
@@ -58,7 +82,7 @@ const LoginForm = ({formType}: Props) => {
   }
 
   return (
-    <Card className="max-w-[500px] m-auto">
+    <Card className="max-w-[500px] m-auto bg-opacity-50">
       <CardHeader>{ formType === 'seeker' ? 'Seeker' : 'Organization' } Login Form</CardHeader>
       <Divider />
       <CardBody>
@@ -79,6 +103,7 @@ const LoginForm = ({formType}: Props) => {
             <form onSubmit={handleSubmit}>
               <div className="mb-5">
                 <Input
+                isRequired
                   isClearable
                   type="text"
                   name="email"
@@ -95,6 +120,7 @@ const LoginForm = ({formType}: Props) => {
               </div>
               <div className="mb-5">
                 <Input
+                isRequired
                   isClearable
                   type="password"
                   name="password"

@@ -1,7 +1,5 @@
 'use client'
 
-// import { useClient } from 'next/client'
-
 import {
   Navbar,
   NavbarBrand,
@@ -12,6 +10,8 @@ import {
   DropdownMenu,
   DropdownItem,
   Dropdown,
+  useSelect,
+  user,
 } from '@nextui-org/react'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -22,8 +22,9 @@ import {
   faSun,
 } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'next/navigation'
+import { useSelector } from 'react-redux'
 import { AcmeLogo } from '@/components/icons/AcmeLogo'
-import next from 'next/types'
+import { RootState } from '@/types/types'
 
 type Props = {
   modeToggle: () => void
@@ -31,7 +32,14 @@ type Props = {
 }
 
 export default function Navvbar({ modeToggle, mode }: Props) {
-  // const client = useClient()
+  const user = useSelector((state: RootState ) => {
+    if (state.auth.user) {
+      return state.auth.user
+    }
+    else {
+      return null
+    }
+  })
 
   const router = useRouter()
   const handleModeToggle = (): void => {
@@ -45,12 +53,12 @@ export default function Navvbar({ modeToggle, mode }: Props) {
         <p className="font-bold text-inherit">ACME</p>
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        {/* <NavbarItem>
-          <Link color="foreground" href="#">
-            Features
-          </Link>
+        <NavbarItem>
+          { user ? (
+            user.username
+            ):('')}
         </NavbarItem>
-        <NavbarItem isActive>
+        {/* <NavbarItem isActive>
           <Link href="#" aria-current="page">
             Customers
           </Link>

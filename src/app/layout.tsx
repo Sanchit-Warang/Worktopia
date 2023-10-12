@@ -28,9 +28,11 @@ export default function RootLayout({
 
   const background = {
     // dark :'bg-gradient-to-r from-black to-purple-800 via-black via-20% to-gray-900 via-black via-60% to-blue-800 via-black via-40% to-emerald-800 via-black to-pink-800',
-    dark: 'bg-gradient-to-br from-slate-900 via-blue-900 to-lime-700',
+    // og dark: 'bg-gradient-to-r from-slate-900 via-blue-900 to-lime-700',
     // light:'bg-gradient-to-r from-[#FAFAFA] from-10% via-[#FFEDFA] via-30% via-[#FFDCF5] via-70% via-[#A2E9C1] via-80% to-[#FDEDD3]'
-    light: 'bg-gradient-to-br from-slate-400 via-blue-400 to-lime-400',
+    // og light: 'bg-gradient-to-r from-slate-400 via-blue-400 to-lime-400',
+    light:'bg-gradient-to-r from-slate-300 via-violet-300 to-slate-300',
+    dark:'bg-gradient-to-r from-slate-900 via-violet-900 to-slate-900'
   }
 
   return (
