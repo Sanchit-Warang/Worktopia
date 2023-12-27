@@ -7,8 +7,13 @@ import { Providers } from './providers'
 import Navvbar from '@/components/Navvbar'
 // import type { Metadata } from 'next'
 // import { Inter } from 'next/font/google'
+import SideBar from '@/components/SideBar'
+import RightBar from '@/components/RightBar'
+import { useTheme } from 'next-themes'
 
-// const inter = Inter({ subsets: ['latin'] })
+import { Exo_2 } from 'next/font/google'
+
+const exo_2 = Exo_2({ subsets: ['latin'] })
 
 // export const metadata: Metadata = {
 //   title: 'Create Next App',
@@ -20,31 +25,23 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const [mode, setMode] = useState<'light' | 'dark'>('dark')
-
-  const modeToggle = (): void => {
-    setMode(mode === 'dark' ? 'light' : 'dark')
-  }
-
-  const background = {
-    // dark :'bg-gradient-to-r from-black to-purple-800 via-black via-20% to-gray-900 via-black via-60% to-blue-800 via-black via-40% to-emerald-800 via-black to-pink-800',
-    // og dark: 'bg-gradient-to-r from-slate-900 via-blue-900 to-lime-700',
-    // light:'bg-gradient-to-r from-[#FAFAFA] from-10% via-[#FFEDFA] via-30% via-[#FFDCF5] via-70% via-[#A2E9C1] via-80% to-[#FDEDD3]'
-    // og light: 'bg-gradient-to-r from-slate-400 via-blue-400 to-lime-400',
-    light:'bg-gradient-to-r from-slate-300 via-violet-300 to-slate-300',
-    dark:'bg-gradient-to-r from-slate-900 via-violet-900 to-slate-900'
-  }
-
   return (
-    <html
-      lang="en"
-      className={`${mode} ${background[mode]}
+    <html lang="en">
+      <body
+        className={`${exo_2.className} bg-background text-copy-light
+      !scroll-smooth
     `}
-    >
-      <body>
+      >
         <Providers>
-          <Navvbar modeToggle={modeToggle} mode={mode} />
-          {children}
+          {/* <Navvbar modeToggle={modeToggle} mode={mode} /> */}
+          <div className="flex mx-auto w-[90vw] ">
+            <SideBar />
+            {children}
+            {/* <div className="h-[100vh] w-full border-x-1 border-borderr">
+              {children}
+            </div>
+            <RightBar /> */}
+          </div>
         </Providers>
       </body>
     </html>

@@ -1,6 +1,11 @@
 'use client'
+import Image from 'next/image'
 
-export const AcmeLogo = () => (
+type Props = {
+  className?: string
+}
+
+export const AcmeLogo = ({ className }: Props) => (
   // <svg fill="none" height="36" viewBox="0 0 32 32" width="36">
   //   <path
   //     clipRule="evenodd"
@@ -9,5 +14,5 @@ export const AcmeLogo = () => (
   //     fillRule="evenodd"
   //   />
   // </svg>
-  <img src='./images/logo.png' height={'80'} width={'80'}/>
-);
+  <Image className={className} alt="" src="/images/logo.png" width={80} height={80} />
+)

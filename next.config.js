@@ -7,7 +7,7 @@ module.exports = {
       return [
         {
           source: '/api/:path*', // Define the source path for your API requests
-          destination: 'http://localhost:8000/api/:path*', // Specify the destination URL of your API
+          destination: `${process.env.SERVER_URL}/api/:path*`, // Specify the destination URL of your API
         },
       ];
     },

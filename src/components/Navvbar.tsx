@@ -25,6 +25,7 @@ import { useRouter } from 'next/navigation'
 import { useSelector } from 'react-redux'
 import { AcmeLogo } from '@/components/icons/AcmeLogo'
 import { RootState } from '@/types/types'
+import {useTheme} from "next-themes";
 
 type Props = {
   modeToggle: () => void
@@ -32,32 +33,31 @@ type Props = {
 }
 
 export default function Navvbar({ modeToggle, mode }: Props) {
-  const user = useSelector((state: RootState ) => {
+  const user = useSelector((state: RootState) => {
     if (state.auth.user) {
       return state.auth.user
-    }
-    else {
+    } else {
       return null
     }
   })
 
   const router = useRouter()
+
+  const { theme, setTheme } = useTheme()
+
   const handleModeToggle = (): void => {
+    setTheme(theme === 'dark' ? 'light' : 'dark')
     modeToggle()
   }
 
   return (
-    <Navbar shouldHideOnScroll>
+    <Navbar shouldHideOnScroll className='h-[7vh] bg-opacity-5'>
       <NavbarBrand as={Link} href="/">
         <AcmeLogo />
-        <p className="font-bold text-inherit">ACME</p>
+        <p className="font-bold text-inherit">ResuMax</p>
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarItem>
-          { user ? (
-            user.username
-            ):('')}
-        </NavbarItem>
+        <NavbarItem>{user ? user.username : ''}</NavbarItem>
         {/* <NavbarItem isActive>
           <Link href="#" aria-current="page">
             Customers
@@ -73,7 +73,9 @@ export default function Navvbar({ modeToggle, mode }: Props) {
         <Dropdown>
           <NavbarItem className="hidden lg:flex">
             <DropdownTrigger>
-              <Button variant="light">Login</Button>
+              <Button color="primary" variant="flat">
+                Login
+              </Button>
             </DropdownTrigger>
           </NavbarItem>
           <DropdownMenu
@@ -106,9 +108,39 @@ export default function Navvbar({ modeToggle, mode }: Props) {
           </DropdownMenu>
         </Dropdown>
         <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
-            Sign Up
-          </Button>
+          <Dropdown>
+            <DropdownTrigger>
+              <Button as={Link} color="primary" href="#" variant="flat">
+                Register
+              </Button>
+            </DropdownTrigger>
+            <DropdownMenu
+            aria-label="Register options"
+            className="w-[340px]"
+            itemClasses={{
+              base: 'gap-4',
+            }}
+          >
+            <DropdownItem
+              key="seeker-registration"
+              description="register as a seeker"
+              startContent={<FontAwesomeIcon icon={faUser} beat />}
+              onClick={() => router.replace('/seeker-registration')}
+            >
+              Seeker Registration
+            </DropdownItem>
+            <DropdownItem
+              // as={Link}
+              // herf='/temp'
+              key="organization-regirstration"
+              description="register as an organization"
+              startContent={<FontAwesomeIcon icon={faBuilding} beat />}
+              onClick={() => router.replace('/organization-registration')}
+            >
+              Organization Registration
+            </DropdownItem>
+          </DropdownMenu>
+          </Dropdown>
         </NavbarItem>
         <NavbarItem>
           <Button isIconOnly variant="light" onClick={handleModeToggle}>

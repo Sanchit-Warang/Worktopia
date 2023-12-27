@@ -1,7 +1,7 @@
 'use client'
 
 import SeekerRegistrationForm from "@/components/SeekerRegistrationForm"
-
+import { WithoutAuth } from "@/components/HOC/WithoutAuth"
 const page = () => {
   return (
     <div className="m-auto mt-6">
@@ -10,4 +10,4 @@ const page = () => {
   )
 }
 
-export default page
+export default WithoutAuth(page)

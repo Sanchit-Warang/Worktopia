@@ -4,14 +4,12 @@ import {
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
   Input,
   Button,
   Textarea,
   ScrollShadow,
 } from '@nextui-org/react'
 import { Formik } from 'formik'
-import { useSelector } from 'react-redux'
 import { useRouter } from 'next/navigation'
 import { useSeekerRegistrationMutation } from '@/redux/features/auth/authApiSlice'
 import { SeekerRegistrationFromValues, RootState } from '@/types/types'
@@ -19,18 +17,6 @@ import { SeekerRegistrationFromValues, RootState } from '@/types/types'
 const SeekerRegistrationForm = () => {
   const router = useRouter()
 
-  //redirect if user is already logged in
-  const user = useSelector((state: RootState ) => {
-    if (state.auth.user) {
-      return state.auth.user
-    }
-    else {
-      return null
-    }
-  })
-  if(user){
-    router.replace('/')
-  }
   
 
   const [seekerRegistration] = useSeekerRegistrationMutation()

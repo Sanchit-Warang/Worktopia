@@ -8,25 +8,14 @@ import {
   Button,
 } from '@nextui-org/react'
 import { Formik } from 'formik'
-import { useSelector } from 'react-redux'
 import { useOrgRegistrationMutation } from '@/redux/features/auth/authApiSlice'
-import { OrgRegistrationFromValues, RootState } from '@/types/types'
+import { OrgRegistrationFromValues } from '@/types/types'
 import { useRouter } from 'next/navigation'
+
 
 const OrgRegistrationForm = () => {
   const router = useRouter()
   const [orgRegistration] = useOrgRegistrationMutation()
-  //redirect if user is already logged in
-  const user = useSelector((state: RootState) => {
-    if (state.auth.user) {
-      return state.auth.user
-    } else {
-      return null
-    }
-  })
-  if (user) {
-    router.replace('/')
-  }
 
   // formik start
   const validate = (values: OrgRegistrationFromValues) => {}

@@ -9,6 +9,7 @@ type JobSeekerUser = {
   resume: string
   skills: string[]
   username: string
+  profile_pic: string
 }
 
 type OrganizationUser = {
@@ -20,6 +21,7 @@ type OrganizationUser = {
   overview: string
   username: string
   website: string
+  profile_pic: string
 }
 
 type AuthState = {
@@ -68,6 +70,19 @@ type OrgRegistrationFromValues = {
   founded_at: string
 }
 
+type JobProfile = {
+  id: number
+  organization_profile_pic: string
+  organization_name: string
+  role: string
+  required_experience: number
+  employee_type: string
+  salary: number
+  job_description: string
+  created_at: string
+  skills_required: string[]
+}
+
 export type {
   JobSeekerUser,
   AuthState,
@@ -78,4 +93,5 @@ export type {
   SeekerRegistrationFromValues,
   OrganizationUser,
   OrgRegistrationFromValues,
+  JobProfile,
 }

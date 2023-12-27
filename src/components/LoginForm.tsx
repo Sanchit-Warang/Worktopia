@@ -8,14 +8,12 @@ import {
   Input,
   Button,
 } from '@nextui-org/react'
-import { useSelector } from 'react-redux'
-import { RootState } from '@/types/types'
-import { useRouter } from 'next/navigation'
 import { useDispatch } from 'react-redux'
 import { useSeekerLoginMutation,  useOrgLoginMutation } from '@/redux/features/auth/authApiSlice'
 import { setCredentials } from '@/redux/features/auth/authSlice'
-
+import {redirect} from 'next/navigation'
 import { LoginFormValues } from '@/types/types'
+import { useTheme } from 'next-themes'
 
 
 
@@ -39,20 +37,7 @@ type Props = {
 }
 
 const LoginForm = ({formType}: Props) => {
-  const user = useSelector((state: RootState ) => {
-    if (state.auth.user) {
-      return state.auth.user
-    }
-    else {
-      return null
-    }
-  })
-  
-  const router = useRouter()
-  
-  if(user){
-    router.replace('/')
-  }
+  const { theme, setTheme } = useTheme()
 
   const dispatch = useDispatch()
   const [seekerLogin] = useSeekerLoginMutation()
@@ -66,9 +51,11 @@ const LoginForm = ({formType}: Props) => {
     let userData
     if (formType === 'seeker') {
       userData = await seekerLogin(values).unwrap()
+      setTheme('purple-dark')
     }
     else {
       userData = await orgLogin(values).unwrap()
+      setTheme('green-dark')
     }
     console.log(userData)
     dispatch(
@@ -79,6 +66,7 @@ const LoginForm = ({formType}: Props) => {
       })
     )
     setSubmitting(false)
+    redirect('/')
   }
 
   return (
