@@ -10,8 +10,7 @@ import useGetUserAndType from '@/hooks/useGetUserAndType'
 import { useRouter } from 'next/navigation'
 import { useAppDispatch } from '@/redux/hooks'
 import { logOut } from '@/redux/features/auth/authSlice'
-
-
+import { apiSlice } from '@/redux/api/apiSlice'
 
 const AvatarAndLogin = () => {
   const router = useRouter()
@@ -28,8 +27,9 @@ const AvatarAndLogin = () => {
     }
   }
 
-  const handleLogout = () =>{
+  const handleLogout = () => {
     dispatch(logOut())
+    dispatch(apiSlice.util.resetApiState())
     router.replace('/')
   }
 

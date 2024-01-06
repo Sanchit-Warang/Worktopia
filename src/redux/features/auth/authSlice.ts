@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AuthState } from '@/types/types'
-
+import { apiSlice } from '@/redux/api/apiSlice'
+import { Dispatch } from '@reduxjs/toolkit'
 
 const getUserInfoFromLocalStorage = () => {
   if (typeof window !== 'undefined') {

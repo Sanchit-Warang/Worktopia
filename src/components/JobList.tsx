@@ -1,12 +1,12 @@
 'use client'
-import { useState } from 'react'
 
-import { ScrollShadow, CircularProgress } from '@nextui-org/react'
+import {  CircularProgress } from '@nextui-org/react'
 import { motion } from 'framer-motion'
 import sortJobProfiles from '@/utils/sortJobProfiles'
 
 import JobListItem from './JobListItem'
 import { useGetJobProfilesQuery } from '@/redux/features/jobProfile/jobProfileApiSlice'
+import useGetUserAndType from '@/hooks/useGetUserAndType'
 
 type Filters = {
   search: string
@@ -40,6 +40,8 @@ type Props = {
 }
 
 const JobList = ({ filters, sort }: Props) => {
+  const user = useGetUserAndType()
+  
   const {
     data: jobProfiles,
     isLoading,
@@ -62,23 +64,20 @@ const JobList = ({ filters, sort }: Props) => {
     <>
       {jobProfiles &&
         jobProfiles?.length !== 0 &&
-        // sortJobProfiles(jobProfiles, sort)
-        [...jobProfiles, ...jobProfiles, ...jobProfiles].map(
-          (jobProfile, i) => (
-            <motion.div
-              className="bg-card-bg cursor-pointer"
-              key={jobProfile.id}
-              initial={{ opacity: 0, translateY: 15 }}
-              animate={{
-                opacity: 1,
-                translateY: 0,
-              }}
-              transition={{ duration: 0.3, delay: i * 0.3 }}
-            >
-              <JobListItem jobProfile={jobProfile} />
-            </motion.div>
-          )
-        )}
+        sortJobProfiles(jobProfiles, sort).map((jobProfile, i) => (
+          <motion.div
+            className="bg-card-bg cursor-pointer"
+            key={jobProfile.id}
+            initial={{ opacity: 0, translateY: 15 }}
+            animate={{
+              opacity: 1,
+              translateY: 0,
+            }}
+            transition={{ duration: 0.3, delay: i * 0.3 }}
+          >
+            <JobListItem jobProfile={jobProfile} />
+          </motion.div>
+        ))}
       {jobProfiles?.length === 0 && (
         <div className="text-center pt-2">No Entries</div>
       )}

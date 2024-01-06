@@ -7,13 +7,11 @@ export const UsersApiSlice = apiSlice.injectEndpoints({
       query: () => ({
         url: `/account/create/jobseeker`,
       }),
-      keepUnusedDataFor: 60,
     }),
     getUser: builder.query<JobSeekerUser, string | string[]>({
       query: (userId) => ({
         url: `/account/jobseeker/${userId}`,
       }),
-      keepUnusedDataFor: 60,
     }),
   }),
 })

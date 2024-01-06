@@ -4,7 +4,7 @@ import { setCredentials, logOut } from '@/redux/features/auth/authSlice'
 const baseQuery = fetchBaseQuery({
   baseUrl: '/api',
   credentials: 'include',
-  retry: 3,
+  retry: 10,
   prepareHeaders: (headers, { getState }) => {
     headers.set('content-type', 'application/json')
     const accessToken = getState().auth.accessToken
@@ -23,8 +23,8 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
     const tempRT = api.getState().auth.refreshToken
     const tempAT = api.getState().auth.accessToken
     console.log({
-      tempAT : `${tempAT}`,
-      tempRT : `${tempRT}`
+      tempAT: `${tempAT}`,
+      tempRT: `${tempRT}`
     })
     // send refresh token to get new access token
     // const newAcessTokenRes = await baseQuery('/account/token/refresh', api, {
