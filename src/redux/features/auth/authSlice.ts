@@ -1,10 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AuthState } from '@/types/types'
-import { jobProfileApiSlice } from '../jobProfile/jobProfileApiSlice'
 
-const jsonString = localStorage.getItem('userInfo')
 
-const userInfo = jsonString !== null ? JSON.parse(jsonString) : null
+const getUserInfoFromLocalStorage = () => {
+  if (typeof window !== 'undefined') {
+    const jsonString = localStorage.getItem('userInfo')
+    return jsonString !== null ? JSON.parse(jsonString) : null
+  }
+  return null
+}
+
+const userInfo = getUserInfoFromLocalStorage()
 
 const initialState: AuthState = userInfo
   ? userInfo
@@ -34,8 +40,7 @@ const authSlice = createSlice({
       localStorage.removeItem('userInfo')
     },
   },
-  },
-)
+})
 
 export const { setCredentials, logOut } = authSlice.actions
 
