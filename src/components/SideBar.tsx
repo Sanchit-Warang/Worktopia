@@ -17,9 +17,14 @@ const SideBar = () => {
   const router = useRouter()
   const { theme } = useTheme()
   return (
-    <div className="h-[100vh] w-[30%] p-1 border-x-1 border-borderr text-lg">
+    <div className="md:block hidden h-[100vh] w-[30%] p-1 border-x-1 border-borderr text-lg">
       <div className="flex justify-center pt-2">
-        <Image src={'/images/worktopia2.png'} alt='logo' width={100} height={100}/>
+        <Image
+          src={'/images/worktopia2.png'}
+          alt="logo"
+          width={100}
+          height={100}
+        />
         {/* <AcmeLogo className="w-[23%]" />
         <h1>AI Recruter</h1> */}
       </div>

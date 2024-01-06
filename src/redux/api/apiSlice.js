@@ -4,6 +4,7 @@ import { setCredentials, logOut } from '@/redux/features/auth/authSlice'
 const baseQuery = fetchBaseQuery({
   baseUrl: '/api',
   credentials: 'include',
+  retry: 3,
   prepareHeaders: (headers, { getState }) => {
     headers.set('content-type', 'application/json')
     const accessToken = getState().auth.accessToken
@@ -17,31 +18,50 @@ const baseQuery = fetchBaseQuery({
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions)
   console.log(result)
-  if (result?.error?.originalStatus === 401) {
+  if (result?.error?.status === 401) {
     console.log('acessToken expired')
     const tempRT = api.getState().auth.refreshToken
-    // send refresh token to get new access token
-    const newAcessTokenRes = await baseQuery('/refresh', api, {
-      method: 'POST',
-      body: { refreshToken: tempRT },
-      ...extraOptions,
+    const tempAT = api.getState().auth.accessToken
+    console.log({
+      tempAT : `${tempAT}`,
+      tempRT : `${tempRT}`
     })
+    // send refresh token to get new access token
+    // const newAcessTokenRes = await baseQuery('/account/token/refresh', api, {
+    //   method: 'POST',
+    //   body: { refreshToken: tempRT },
+    //   // ...extraOptions,
+    // })
+
+    const newAcessTokenRes = await fetch('/api/account/token/refresh', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', // Adjust headers if needed
+        'Authorization': `Bearer ${tempAT}`
+      },
+      body: JSON.stringify({ refresh: tempRT }),
+    });
+
+    console.log(newAcessTokenRes)
 
     if (
-      newAcessTokenRes?.error?.originalStatus === 401 ||
-      newAcessTokenRes?.error?.originalStatus === 403
+      newAcessTokenRes?.error?.status === 401 ||
+      newAcessTokenRes?.error?.status === 403
     ) {
       api.dispatch(logOut())
     } else {
+      console.log('hi')
+      const temp = await newAcessTokenRes.json()
       const user = api.getState().auth.user
       api.dispatch(
         setCredentials({
           user,
-          accessToken: newAcessTokenRes.data.accessToken,
-          refreshToken: newAcessTokenRes.data.refreshToken,
+          accessToken: temp.access,
+          refreshToken: temp.refresh,
         })
       )
       // retry the original request
+      console.log('fixed')
       result = await baseQuery(args, api, extraOptions)
     }
   }
@@ -52,3 +72,4 @@ export const apiSlice = createApi({
   baseQuery: baseQueryWithReauth,
   endpoints: (builder) => ({}),
 })
+

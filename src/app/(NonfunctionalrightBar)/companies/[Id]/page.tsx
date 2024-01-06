@@ -8,12 +8,12 @@ import { useGetCompanyQuery } from '@/redux/features/company/companyApiSlice'
 import Link from 'next/link'
 
 const CompanyPage = () => {
-  const { companyId } = useParams()
-  const { data: organization, isLoading, error } = useGetCompanyQuery(companyId)
+  const { Id } = useParams()
+  const { data: organization, isLoading, error } = useGetCompanyQuery(Id)
 
   if (isLoading) {
     return (
-      <div className=" h-[100vh] w-full flex justify-center items-center">
+      <div className=" h-[100%] w-full flex justify-center items-center">
         <CircularProgress label="Free hosting may require some time" />
       </div>
     )
@@ -25,12 +25,12 @@ const CompanyPage = () => {
 
   return (
     <>
-      <div className=" h-[8vh] items-center p-3 border-b-1 border-borderr">
+      <div className=" h-[8%] items-center p-3 border-b-1 border-borderr">
         <span className="text-2xl">@{organization.username}</span>
       </div>
       <ScrollShadow
         size={100}
-        className="h-[92vh] scrollbar scrollbar-thumb-primary scrollbar-thin scrollbar-track-primary-inactive"
+        className="h-[92%] scrollbar scrollbar-thumb-primary scrollbar-thin scrollbar-track-primary-inactive"
       >
         <div className="bg-card-bg p-6">
           <div className="flex flex-col items-center mx-[15%]">

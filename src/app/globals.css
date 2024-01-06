@@ -32,6 +32,20 @@ body {
   width: 100vw;
   /* background-color: aqua; */
 }
+/* 
+@media (max-width: 767px) {
+  body {
+    font-size: 10px;
+  }
+} */
 
+.content{
+  height: 100%;
+}
 
+@media (max-width: 767px) {
+  .content{
+      height: 93vh;
+  }
+}
 

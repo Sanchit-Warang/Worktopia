@@ -13,7 +13,7 @@ type Props = {
 const JobListItem = ({ jobProfile }: Props) => {
   return (
     <Link href={`/job/${jobProfile.id}`}>
-    <div className="flex gap-4 items-center p-3">
+    <div className="flex flex-wrap gap-4 items-center p-3">
       <Avatar isBordered color='success' src={`https://jobcom-media-1.s3.amazonaws.com/${jobProfile.organization_profile_pic}`} size="lg" />
       <div>
         <div className="text-md">

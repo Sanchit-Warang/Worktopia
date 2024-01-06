@@ -1,6 +1,8 @@
 'use client'
 import MainContentWrapper from '@/components/layouts/MainContentWrapper'
-import RighitContentWrapper from '@/components/layouts/RightContentWrapper'
+import RightContentWrapper from '@/components/layouts/RightContentWrapper'
+import HeadingWrapper from '@/components/layouts/HeadingWrapper'
+import ScrollableContentWrapper from '@/components/layouts/ScrollableContentWrapper'
 import JobFilters from '@/components/JobFilters'
 import JobList from '@/components/JobList'
 import {
@@ -10,11 +12,13 @@ import {
   DropdownItem,
   Input,
   Button,
-  ScrollShadow
+  ScrollShadow,
 } from '@nextui-org/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass, faSort } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 
 type Filters = {
   search: string
@@ -27,6 +31,7 @@ type Filters = {
 type Sort = 'recent' | 'lowToHigh' | 'highToLow'
 
 const Page = () => {
+  const pathname = usePathname()
   const [filters, setFilters] = useState<Filters>({
     search: '',
     role: '',
@@ -47,7 +52,7 @@ const Page = () => {
   return (
     <>
       <MainContentWrapper>
-        <div className="10vh">
+        <HeadingWrapper h={'21%'}>
           <div className="flex items-center p-3 border-b-1 border-borderr">
             <span>Jobs</span>
             <Dropdown>
@@ -87,6 +92,7 @@ const Page = () => {
                 type="text"
                 isClearable
                 size="sm"
+                // labelPlacement='outside-left'
                 value={filters.search}
                 onChange={handleInputChange}
                 color="primary"
@@ -95,23 +101,42 @@ const Page = () => {
               />
             </div>
           </div>
-        </div>
-        <div>
-          <ScrollShadow
-            size={100}
-            className="h-[83vh] scrollbar scrollbar-thumb-primary scrollbar-thin scrollbar-track-primary-inactive"
-          >
-            <JobList filters={filters} sort={sort} />
-          </ScrollShadow>
-        </div>
+          <div className=" border-b-1 border-borderr">
+            <div className="flex  w-full px-9 py-1">
+              <Link
+                href={'/job-list'}
+                className={`w-[50%] text-center ${
+                  pathname === '/job-list'
+                    ? 'text-primary border-b-1 border-primary'
+                    : ''
+                }`}
+              >
+                <div>Jobs</div>
+              </Link>
+              <Link
+                href={'/applied'}
+                className={`w-[50%] text-center ${
+                  pathname === '/applied'
+                    ? 'text-primary border-b-1 border-primary'
+                    : ''
+                }`}
+              >
+                <div>Applied</div>
+              </Link>
+            </div>
+          </div>
+        </HeadingWrapper>
+        <ScrollableContentWrapper h={'79%'}>
+          <JobList filters={filters} sort={sort} />
+        </ScrollableContentWrapper>
       </MainContentWrapper>
-      <RighitContentWrapper>
+      <RightContentWrapper>
         <JobFilters
           filters={filters}
           handleInputChange={handleInputChange}
           setFilters={setFilters}
         />
-      </RighitContentWrapper>
+      </RightContentWrapper>
     </>
     // <div className="grid grid-cols-10">
     //     <div className='col-span-2'></div>

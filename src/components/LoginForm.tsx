@@ -1,19 +1,14 @@
 'use client'
 import { Formik } from 'formik'
 import {
-  Card,
-  CardHeader,
-  CardBody,
-  Divider,
   Input,
   Button,
 } from '@nextui-org/react'
-import { useDispatch } from 'react-redux'
+import { useAppDispatch } from '@/redux/hooks'
 import { useSeekerLoginMutation,  useOrgLoginMutation } from '@/redux/features/auth/authApiSlice'
 import { setCredentials } from '@/redux/features/auth/authSlice'
 import {redirect} from 'next/navigation'
 import { LoginFormValues } from '@/types/types'
-import { useTheme } from 'next-themes'
 
 
 
@@ -37,11 +32,12 @@ type Props = {
 }
 
 const LoginForm = ({formType}: Props) => {
-  const { theme, setTheme } = useTheme()
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const [seekerLogin] = useSeekerLoginMutation()
   const [orgLogin] = useOrgLoginMutation()
+
+  const color = formType === 'seeker' ? 'primary' : 'secondary'
 
   const onSubmit = async (
     values: LoginFormValues,
@@ -51,11 +47,9 @@ const LoginForm = ({formType}: Props) => {
     let userData
     if (formType === 'seeker') {
       userData = await seekerLogin(values).unwrap()
-      setTheme('purple-dark')
     }
     else {
       userData = await orgLogin(values).unwrap()
-      setTheme('green-dark')
     }
     console.log(userData)
     dispatch(
@@ -70,12 +64,8 @@ const LoginForm = ({formType}: Props) => {
   }
 
   return (
-    <Card className="max-w-[500px] m-auto bg-opacity-50">
-      <CardHeader>{ formType === 'seeker' ? 'Seeker' : 'Organization' } Login Form</CardHeader>
-      <Divider />
-      <CardBody>
         <Formik
-          initialValues={{ email: 'link@gmail.com', password: 'link' }}
+          initialValues={{ email: '', password: '' }}
           validate={validate}
           onSubmit={onSubmit}
         >
@@ -93,10 +83,10 @@ const LoginForm = ({formType}: Props) => {
                 <Input
                 isRequired
                   isClearable
+                  color={color}
                   type="text"
                   name="email"
                   label="Email"
-                  placeholder="Enter your User Name"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.email}
@@ -113,7 +103,7 @@ const LoginForm = ({formType}: Props) => {
                   type="password"
                   name="password"
                   label="Password"
-                  placeholder="Enter your Password"
+                  color={color}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.password}
@@ -126,20 +116,23 @@ const LoginForm = ({formType}: Props) => {
               <div>
                 <center>
                   <Button
-                    color="primary"
+                    color={color}
+                    size='sm'
                     variant="shadow"
                     type="submit"
                     isDisabled={isSubmitting}
+                    isLoading={isSubmitting}
                   >
-                    Submit
+                    Login
                   </Button>
                 </center>
+                <div className='text-center pt-3'>
+                  <p> {`Hey join as a ${formType} !`}  </p>
+                </div>
               </div>
             </form>
           )}
         </Formik>
-      </CardBody>
-    </Card>
   )
 }
 

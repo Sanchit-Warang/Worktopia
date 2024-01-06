@@ -2,7 +2,7 @@
 
 const MainContentWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="h-[100vh] w-full border-x-1 border-borderr">{children}</div>
+    <div className="h-[100%] w-full border-x-1 border-borderr">{children}</div>
   )
 }
 

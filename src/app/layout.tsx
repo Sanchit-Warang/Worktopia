@@ -8,6 +8,7 @@ import Navvbar from '@/components/Navvbar'
 // import type { Metadata } from 'next'
 // import { Inter } from 'next/font/google'
 import SideBar from '@/components/SideBar'
+import SideBarBottom from '@/components/ui/SideBarBottom'
 import RightBar from '@/components/RightBar'
 import { useTheme } from 'next-themes'
 
@@ -34,7 +35,7 @@ export default function RootLayout({
       >
         <Providers>
           {/* <Navvbar modeToggle={modeToggle} mode={mode} /> */}
-          <div className="flex mx-auto w-[90vw] ">
+          <div className="flex mx-auto md:w-[90vw] content  w-full">
             <SideBar />
             {children}
             {/* <div className="h-[100vh] w-full border-x-1 border-borderr">
@@ -42,6 +43,7 @@ export default function RootLayout({
             </div>
             <RightBar /> */}
           </div>
+          <SideBarBottom />
         </Providers>
       </body>
     </html>

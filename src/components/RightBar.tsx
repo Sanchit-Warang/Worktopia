@@ -5,6 +5,7 @@ import { Button, Card, CardBody, Avatar } from '@nextui-org/react'
 import RightContentWrapper from './layouts/RightContentWrapper'
 
 const RightBar = () => {
+  
   return (
     <RightContentWrapper>
       <div className="border-b-1 border-borderr">

@@ -192,7 +192,7 @@ const config: Config = {
               800: '#124789',
               900: '#0B3271',
               DEFAULT: '#3aabed',
-              foreground: '#031825',
+              foreground: '#ffffff',
             },
 
             focus: '#5f14e0', // Focus color
