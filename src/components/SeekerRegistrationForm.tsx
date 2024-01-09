@@ -68,23 +68,15 @@ const SeekerRegistrationForm = () => {
         <CardBody>
           <Formik
             initialValues={{
-              username: 'sanjay',
-              email: 'sanjay@gmail.com',
-              password: '123456',
-              firstname: 'Sanjay',
-              lastname: 'Jogi',
-              description:
-                "Ahoy, data wizards! 🧙‍♂️ I am your Python Enchanter, traversing the magical realms of data sorcery with the finesse of Python, the language of serpentine elegance. 🐍✨ Armed with the formidable scikit-learn wand, I conjure predictive models that peer into the very fabric of the future, while NumPy's mystical arrays lay the foundation for data alchemy. 📊In the enchanted realm of pandas, I summon dataframes that waltz in perfect harmony, revealing the cosmic patterns hidden within datasets. SQL, the ancient language of databases, becomes my incantation, allowing me to converse with the wisdom of data archives. 🌌✨ Seaborn, my artistic brush, paints vivid visualizations that narrate captivating tales of data exploration.Join me on this data-driven odyssey, where Python serves as my wand, and the skills of scikit-learn, NumPy, pandas, SQL, and Seaborn are the enchanted spells that breathe life into datasets. Together, let's embark on a magical journey through the captivating realms of data science, unraveling the mysteries that lie within the vast sea of information. 🚀🔍",
+              username: '',
+              email: '',
+              password: '',
+              firstname: '',
+              lastname: '',
+              description:"",
               no_of_years_experience: 0,
-              skills: [
-                'Python',
-                'scikit-learn',
-                'NumPy',
-                'pandas',
-                'SQL',
-                'Seaborn',
-              ],
-              phone_number: '9167618224',
+              skills: [],
+              phone_number: '',
               profile_pic: undefined,
               resume: undefined,
             }}
