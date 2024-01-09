@@ -7,6 +7,7 @@ export const CompanyApiSlice = apiSlice.injectEndpoints({
       query: () => ({
         url: `/account/create/organization`,
       }),
+      providesTags: ['Company']
     }),
     getCompany: builder.query<OrganizationUser, string | string[]>({
       query: (companyId) => ({

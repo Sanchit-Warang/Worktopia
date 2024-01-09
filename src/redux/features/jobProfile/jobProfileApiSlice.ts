@@ -17,6 +17,7 @@ export const jobProfileApiSlice = apiSlice.injectEndpoints({
         url: '/jobs/jobprofile',
         params,
       }),
+      providesTags: ['JobProfile'],
     }),
     getJobProfile: builder.query<JobProfile, string | string[]>({
       query: (jobId) => ({

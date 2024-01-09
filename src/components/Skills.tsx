@@ -1,15 +1,30 @@
 'use client'
 import { Chip } from '@nextui-org/react'
 import { motion } from 'framer-motion'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faX } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
   skills: string[]
   all: boolean
-  delay: number
+  isDeletable?: boolean
+  allowDelay?: boolean
+  delay?: number
   className?: string
+  color?: 'secondary' | 'default' | 'primary' | 'success' | 'warning' | 'danger'
+  handleDeleteSkill?: (i: number) => void
 }
 
-const Skills = ({ skills, all, delay, className = '' }: Props) => {
+const Skills = ({
+  skills,
+  all,
+  delay = 0,
+  className = '',
+  allowDelay = true,
+  color = 'secondary',
+  isDeletable = false,
+  handleDeleteSkill = (i: number) => {},
+}: Props) => {
   if (all === true) {
     return (
       <div className={`flex flex-wrap gap-2 ${className}`}>
@@ -22,10 +37,27 @@ const Skills = ({ skills, all, delay, className = '' }: Props) => {
                 opacity: 1,
                 translateX: 0,
               }}
-              transition={{ duration: 0.3, delay: i * 0.3 + delay }}
+              transition={{
+                duration: 0.3,
+                delay: allowDelay ? i * 0.3 + delay : 0,
+              }}
             >
-              <Chip size="sm" variant="bordered" color="secondary">
+              <Chip size="sm" variant="bordered" color={color}>
                 {skill}
+                {isDeletable && (
+                  <>
+                    {' '}
+                    <button
+                      className="inline h-[1rem] text-danger"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        handleDeleteSkill(i)
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faX} />
+                    </button>
+                  </>
+                )}
               </Chip>
             </motion.div>
           )

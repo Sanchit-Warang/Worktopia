@@ -7,11 +7,13 @@ const LoginPage = () => {
   return (
     <>
       <HeadingWrapper h={'8%'}>
-        <div className="h-full p-4 border-b-1 border-borderr text-xl">Login</div>
+        <div className="h-full p-4 border-b-1 border-borderr text-xl">
+          Login
+        </div>
       </HeadingWrapper>
       <ScrollableContentWrapper h={'92%'}>
-        <div className='h-full py-10'>
-        <LoginFormCard />
+        <div className="h-full py-10 w-full">
+          <LoginFormCard />
         </div>
       </ScrollableContentWrapper>
     </>

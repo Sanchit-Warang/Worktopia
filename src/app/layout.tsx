@@ -1,5 +1,4 @@
 'use client'
-import { useState } from 'react'
 import './globals.css'
 import { Providers } from './providers'
 // import { useSelector } from 'react-redux';
@@ -9,8 +8,6 @@ import Navvbar from '@/components/Navvbar'
 // import { Inter } from 'next/font/google'
 import SideBar from '@/components/SideBar'
 import SideBarBottom from '@/components/ui/SideBarBottom'
-import RightBar from '@/components/RightBar'
-import { useTheme } from 'next-themes'
 
 import { Exo_2 } from 'next/font/google'
 

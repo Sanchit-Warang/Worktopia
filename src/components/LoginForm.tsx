@@ -9,6 +9,7 @@ import {
 import { setCredentials } from '@/redux/features/auth/authSlice'
 import { redirect } from 'next/navigation'
 import { LoginFormValues } from '@/types/types'
+import Link from 'next/link'
 import { apiSlice } from '@/redux/api/apiSlice'
 
 const validate = (values: LoginFormValues) => {
@@ -125,7 +126,17 @@ const LoginForm = ({ formType }: Props) => {
               </Button>
             </center>
             <div className="text-center pt-3">
-              <p> {`Hey join as a ${formType} !`} </p>
+              <Link
+                href={`/signup/${
+                  formType === 'organization' ? formType : 'user'
+                }`}
+                // href="/signup/user"
+              >
+                <p className="text-copy-light">
+                  {' '}
+                  {`Hey join as a ${formType} !`}{' '}
+                </p>
+              </Link>
             </div>
           </div>
         </form>

@@ -6,7 +6,7 @@ const baseQuery = fetchBaseQuery({
   credentials: 'include',
   retry: 10,
   prepareHeaders: (headers, { getState }) => {
-    headers.set('content-type', 'application/json')
+    // headers.set('content-type', 'application/json')
     const accessToken = getState().auth.accessToken
     if (accessToken) {
       headers.set('authorization', `Bearer ${accessToken}`)
@@ -42,12 +42,13 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
       body: JSON.stringify({ refresh: tempRT }),
     });
 
-    console.log(newAcessTokenRes)
+    // console.log('Sanchit', newAcessTokenRes)
 
     if (
       newAcessTokenRes?.error?.status === 401 ||
       newAcessTokenRes?.error?.status === 403
     ) {
+      console.log('i ran')
       api.dispatch(logOut())
     } else {
       console.log('hi')
@@ -70,6 +71,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 
 export const apiSlice = createApi({
   baseQuery: baseQueryWithReauth,
+  tagTypes: ['JobProfile', 'Company', 'User'],
   endpoints: (builder) => ({}),
 })
 

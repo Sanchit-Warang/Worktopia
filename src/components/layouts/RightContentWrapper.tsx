@@ -10,7 +10,7 @@ import { useTheme } from 'next-themes'
 const RightContentWrapper = ({ children }: { children: React.ReactNode }) => {
   const { theme, setTheme } = useTheme()
   return (
-    <div className="md:block hidden h-[100vh] max-w-[22%] min-w-[22%] border-x-1 border-borderr">
+    <div className="md:block hidden h-[100dvh] max-w-[22%] min-w-[22%] border-x-1 border-borderr">
       <div className="flex p-2 items-center border-b-1 border-borderr">
         <AvatarAndLogin/>
         <div className="flex ml-auto items-center">

@@ -7,6 +7,7 @@ export const UsersApiSlice = apiSlice.injectEndpoints({
       query: () => ({
         url: `/account/create/jobseeker`,
       }),
+      providesTags:['User']
     }),
     getUser: builder.query<JobSeekerUser, string | string[]>({
       query: (userId) => ({

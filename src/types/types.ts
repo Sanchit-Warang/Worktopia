@@ -57,6 +57,9 @@ type SeekerRegistrationFromValues = {
   description: string
   no_of_years_experience: number
   phone_number: string
+  skills: string[]
+  profile_pic: File | undefined
+  resume: File | undefined
 }
 
 type OrgRegistrationFromValues = {
@@ -68,6 +71,7 @@ type OrgRegistrationFromValues = {
   website: string
   overview: string
   founded_at: string
+  profile_pic: File | undefined
 }
 
 type JobProfile = {

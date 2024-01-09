@@ -17,7 +17,7 @@ const SideBar = () => {
   const router = useRouter()
   const { theme } = useTheme()
   return (
-    <div className="md:block hidden h-[100vh] w-[30%] p-1 border-x-1 border-borderr text-lg">
+    <div className="md:block hidden h-[100dvh] w-[30%] p-1 border-x-1 border-borderr text-lg">
       <div className="flex justify-center pt-2">
         <Image
           src={'/images/worktopia2.png'}
