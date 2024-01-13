@@ -3,6 +3,7 @@ import { Chip } from '@nextui-org/react'
 import { motion } from 'framer-motion'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faX } from '@fortawesome/free-solid-svg-icons'
+import DevIcon from './DevIcon'
 
 type Props = {
   skills: string[]
@@ -43,6 +44,7 @@ const Skills = ({
               }}
             >
               <Chip size="sm" variant="bordered" color={color}>
+                <DevIcon skillName={skill} />
                 {skill}
                 {isDeletable && (
                   <>
@@ -79,6 +81,7 @@ const Skills = ({
             transition={{ duration: 0.3, delay: i * 0.3 + delay }}
           >
             <Chip size="sm" variant="bordered" color="secondary" key={i}>
+              <DevIcon skillName={skill} />
               {skill}
             </Chip>
           </motion.div>
