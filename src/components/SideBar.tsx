@@ -60,6 +60,13 @@ const SideBar = () => {
             Company
           </ListboxItem>
           <ListboxItem
+            key="companies"
+            className="my-1 py-3 bg-primary-inactive"
+            startContent={<FontAwesomeIcon icon={faBuilding} className="" />}
+          >
+            Post a Job
+          </ListboxItem>
+          <ListboxItem
             key="4"
             className="my-1 py-3 bg-primary-inactive"
             startContent={<FontAwesomeIcon icon={faHandshake} className="" />}

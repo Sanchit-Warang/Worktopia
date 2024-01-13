@@ -13,7 +13,7 @@ export const WithAuthSeeker = (Component: any) => {
       if(user && userType === 'Organization'){
         redirect('/job-list')
       }
-    }, [user])
+    }, [user, userType])
     return <Component {...props} />
   }
 }

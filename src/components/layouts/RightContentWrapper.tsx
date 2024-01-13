@@ -12,7 +12,7 @@ const RightContentWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="md:block hidden h-[100dvh] max-w-[22%] min-w-[22%] border-x-1 border-borderr">
       <div className="flex p-2 items-center border-b-1 border-borderr">
-        <AvatarAndLogin/>
+        <AvatarAndLogin />
         <div className="flex ml-auto items-center">
           <FontAwesomeIcon icon={faBell} className="" />
           <Button
@@ -20,10 +20,14 @@ const RightContentWrapper = ({ children }: { children: React.ReactNode }) => {
             className="ml-1"
             variant="light"
             onClick={() => {
-              setTheme(theme === 'my-light' ? 'my-dark' : 'my-light')
+              setTheme(theme === 'light' ? 'dark' : 'light')
             }}
           >
-            <FontAwesomeIcon icon={faSun} />
+            {theme === 'light' ? (
+              <FontAwesomeIcon icon={faMoon} className="text-copy-light" />
+            ) : (
+              <FontAwesomeIcon icon={faSun} className="text-copy-light" />
+            )}
           </Button>
         </div>
       </div>

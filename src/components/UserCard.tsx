@@ -18,7 +18,7 @@ const UserCard = ({ user }: Props) => {
           <div className="text-copy-lighter text-sm">@{user.username}</div>
         </div>
       </div>
-      <div className="h-20 overflow-y-auto text-xs p-3 scrollbar scrollbar-thumb-primary scrollbar-thin scrollbar-track-primary-inactive mb-1">
+      <div className="h-20 overflow-y-auto text-xs p-3 scrollbar scrollbar-thumb-primary scrollbar-thin scrollbar-track-primary-inactive mb-1 text-justify">
         {user.description}
       </div>
       <div className='my-1 px-3'>

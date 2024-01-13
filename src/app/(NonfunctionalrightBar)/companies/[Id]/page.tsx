@@ -64,7 +64,7 @@ const CompanyPage = () => {
         <div className="mt-6  mx-10">
           <div className="text-lg text-center">About {organization.name}</div>
           <br />
-          <p>{organization.overview}</p>
+          <p className='text-justify'>{organization.overview}</p>
         </div>
         <div className="my-8">
           <div className="text-center text-lg my-6">

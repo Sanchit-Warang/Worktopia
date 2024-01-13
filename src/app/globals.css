@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.my-light {
+.light {
   --copy-light: 97, 84, 120;
   --copy-lighter: 135, 120, 16;
   --borderr: 222, 218, 229;
@@ -12,7 +12,7 @@
   /* set 100 value of primary in light */
 }
 
-.my-dark {
+.dark {
   --copy-light: 215, 210, 223;
   --copy-lighter: 162, 150, 181;
   --borderr: 61, 53, 75;

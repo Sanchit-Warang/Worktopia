@@ -79,7 +79,7 @@ const UserDetails = ({ userId }: Props) => {
         <div className="mt-6  mx-10">
           <div className="text-lg text-center">About {user.username}</div>
           <br />
-          <p>{user.description}</p>
+          <p className='text-justify'>{user.description}</p>
         </div>
       </ScrollableContentWrapper>
     </>
