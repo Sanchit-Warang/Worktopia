@@ -1,4 +1,4 @@
-import { JobProfile } from '@/types/types'
+import { JobPostFormValues, JobProfile } from '@/types/types'
 import { apiSlice } from '@/redux/api/apiSlice'
 
 export const jobProfileApiSlice = apiSlice.injectEndpoints({
@@ -29,6 +29,23 @@ export const jobProfileApiSlice = apiSlice.injectEndpoints({
         url: `/applicants/user_applied_jobs/${username}`,
       }),
     }),
+    createJobProfile: builder.mutation<any, JobPostFormValues>({
+      query: (data) => ({
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        url: '/jobs/jobprofile',
+        method: 'POST',
+        body: JSON.stringify({
+          ...data,
+          required_experience: data.experience,
+          employee_type: data.type,
+          job_description: data.description,
+          skills_required: data.skills,
+        }),
+      }),
+      invalidatesTags: ['JobProfile'],
+    }),
   }),
 })
 
@@ -36,4 +53,5 @@ export const {
   useGetJobProfilesQuery,
   useGetJobProfileQuery,
   useGetAppliedJobProfileQuery,
+  useCreateJobProfileMutation,
 } = jobProfileApiSlice

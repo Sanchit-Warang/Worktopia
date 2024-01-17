@@ -30,7 +30,7 @@ const AvatarAndLogin = () => {
   const handleLogout = () => {
     dispatch(logOut())
     dispatch(apiSlice.util.resetApiState())
-    router.replace('/')
+    router.replace('/job-list')
   }
 
   return (

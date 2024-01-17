@@ -290,6 +290,6 @@ function convertToDeviconName(inputString: string): string {
 export default function deviconName(inputString: string): [boolean, string] {
   const devName = convertToDeviconName(inputString)
   const isKeyPresent = Object.keys(skills).includes(devName)
-  console.log([isKeyPresent, devName])
+  // console.log([isKeyPresent, devName])
   return [isKeyPresent, devName]
 }

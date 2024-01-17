@@ -59,7 +59,7 @@ const LoginForm = ({ formType }: Props) => {
     )
     dispatch(apiSlice.util.resetApiState())
     setSubmitting(false)
-    redirect('/')
+    redirect('/job-list')
   }
 
   return (

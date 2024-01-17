@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { AcmeLogo } from '@/components/icons/AcmeLogo'
+import useGetUserAndType from '@/hooks/useGetUserAndType'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faBriefcase,
@@ -8,12 +9,14 @@ import {
   faBuilding,
   faHandshake,
   faUser,
+  faSheetPlastic,
 } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'next/navigation'
 import { Listbox, ListboxItem } from '@nextui-org/react'
 import { useTheme } from 'next-themes'
 
 const SideBar = () => {
+  const { user, userType } = useGetUserAndType()
   const router = useRouter()
   const { theme } = useTheme()
   return (
@@ -60,22 +63,25 @@ const SideBar = () => {
             Company
           </ListboxItem>
           <ListboxItem
-            key="companies"
-            className="my-1 py-3 bg-primary-inactive"
-            startContent={<FontAwesomeIcon icon={faBuilding} className="" />}
+            key="company/jobposting"
+            className={`my-1 py-3 bg-primary-inactive ${userType === 'Organization'? '': 'hidden'}`}
+            // className="my-1 py-3 bg-primary-inactive"
+            startContent={
+              <FontAwesomeIcon icon={faSheetPlastic} className="" />
+            }
           >
             Post a Job
           </ListboxItem>
           <ListboxItem
             key="4"
-            className="my-1 py-3 bg-primary-inactive"
+            className="my-1 py-3 bg-primary-inactive hidden"
             startContent={<FontAwesomeIcon icon={faHandshake} className="" />}
           >
             Connections
           </ListboxItem>
           <ListboxItem
             key="5"
-            className="my-1 py-3 bg-primary-inactive"
+            className="my-1 py-3 bg-primary-inactive hidden"
             startContent={<FontAwesomeIcon icon={faUser} className="" />}
           >
             Username

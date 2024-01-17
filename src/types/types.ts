@@ -62,6 +62,16 @@ type SeekerRegistrationFromValues = {
   resume: File | undefined
 }
 
+type JobPostFormValues = {
+  organization_id: number
+  role: string
+  description: string
+  experience: number
+  type: string
+  salary: number
+  skills: string[]
+}
+
 type OrgRegistrationFromValues = {
   username: string
   email: string
@@ -98,4 +108,5 @@ export type {
   OrganizationUser,
   OrgRegistrationFromValues,
   JobProfile,
+  JobPostFormValues
 }

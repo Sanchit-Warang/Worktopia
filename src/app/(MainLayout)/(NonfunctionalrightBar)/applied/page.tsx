@@ -1,17 +1,6 @@
 'use client'
 import AppliedJobList from '@/components/AppliedJobList'
 import ScrollableContentWrapper from '@/components/layouts/ScrollableContentWrapper'
-import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
-  Input,
-  Button,
-  ScrollShadow,
-} from '@nextui-org/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass, faSort } from '@fortawesome/free-solid-svg-icons'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import useGetUserAndType from '@/hooks/useGetUserAndType'

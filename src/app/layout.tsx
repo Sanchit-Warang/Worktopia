@@ -38,15 +38,15 @@ export default function RootLayout({
       >
         <Providers>
           {/* <Navvbar modeToggle={modeToggle} mode={mode} /> */}
-          <div className="flex mx-auto md:w-[90vw] content  w-full">
-            <SideBar />
+          {/* <div className="flex mx-auto md:w-[90vw] content  w-full">
+            <SideBar /> */}
             {children}
             {/* <div className="h-[100vh] w-full border-x-1 border-borderr">
               {children}
             </div>
             <RightBar /> */}
-          </div>
-          <SideBarBottom />
+          {/* </div> */}
+          {/* <SideBarBottom /> */}
         </Providers>
       </body>
     </html>

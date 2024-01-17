@@ -69,7 +69,7 @@ const JobPage = () => {
           </div>
           <div className="my-4">
             <div className="my-2">About This Opportunity</div>
-            <div className="my-2 text-sm">
+            <div className="my-2 text-sm text-justify">
               {jobProfile.job_description}
             </div>
           </div>

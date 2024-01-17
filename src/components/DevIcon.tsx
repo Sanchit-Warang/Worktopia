@@ -8,7 +8,7 @@ type Props = {
 const DevIcon = ({ skillName }: Props) => {
   const name = deviconName(skillName)
 
-  if (skillName === 'Reactjs') {
+  if (name[1] === 'reactjs') {
     return (
       <>
         <i className={`devicon-react-original colored devicon-react-plain`}></i>{' '}

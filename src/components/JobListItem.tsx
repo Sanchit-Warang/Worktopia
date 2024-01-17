@@ -23,8 +23,8 @@ const JobListItem = ({ jobProfile }: Props) => {
           </span>
         </div>
         <div className="text-sm text-copy-lighter">
-          {jobProfile.employee_type} | ₹{jobProfile.salary} LPA |{' '}
-          {jobProfile.required_experience}+ years of experience | Posted on{' '}
+          {jobProfile.employee_type} • ₹{jobProfile.salary} LPA •{' '}
+          {jobProfile.required_experience}+ years of experience • Posted on{' '}
           {formatDate(jobProfile.created_at)}
         </div>
         <div className="m-1">
