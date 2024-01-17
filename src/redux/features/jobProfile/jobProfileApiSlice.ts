@@ -46,6 +46,14 @@ export const jobProfileApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['JobProfile'],
     }),
+    getPostedJobProfile: builder.query<JobProfile[], string | string[]>({
+      query: () => ({
+        url: `/jobs/jobprofile`,
+      }),
+      transformResponse: (response: JobProfile[], meta, arg) => {
+        return response.filter((job) => job.organization_name === arg)
+      },
+    }),
   }),
 })
 
@@ -54,4 +62,5 @@ export const {
   useGetJobProfileQuery,
   useGetAppliedJobProfileQuery,
   useCreateJobProfileMutation,
+  useGetPostedJobProfileQuery,
 } = jobProfileApiSlice

@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/redux/features/auth/authSlice.ts", "src/redux/api/apiSlice.js", "src/components/Navvbar.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/redux/features/auth/authSlice.ts", "src/redux/api/apiSlice.js", "src/components/Navvbar.tsx", "src/app/(MainLayout)/(NonfunctionalrightBar)/jobposted"],
   "exclude": ["node_modules"],
 }

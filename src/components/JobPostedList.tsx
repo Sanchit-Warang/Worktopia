@@ -3,16 +3,19 @@
 import { CircularProgress } from '@nextui-org/react'
 import { motion } from 'framer-motion'
 
-
 import JobListItem from './JobListItem'
-import { useGetAppliedJobProfileQuery } from '@/redux/features/jobProfile/jobProfileApiSlice'
+import { useGetPostedJobProfileQuery } from '@/redux/features/jobProfile/jobProfileApiSlice'
 
 type Props = {
   username: string | string[]
 }
 
-const AppliedJobList = ({ username }: Props) => {
-  const { data: jobProfiles, isLoading, error } = useGetAppliedJobProfileQuery(username)
+const JobPostedList = ({ username }: Props) => {
+  const {
+    data: jobProfiles,
+    isLoading,
+    error,
+  } = useGetPostedJobProfileQuery(username)
 
   if (isLoading) {
     return (
@@ -51,4 +54,4 @@ const AppliedJobList = ({ username }: Props) => {
   )
 }
 
-export default AppliedJobList
+export default JobPostedList

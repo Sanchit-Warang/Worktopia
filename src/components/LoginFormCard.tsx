@@ -40,7 +40,7 @@ const LoginFormCard = () => {
           <Tab key={'1'} title={'Seeker'}>
             <LoginForm formType="seeker" />
           </Tab>
-          <Tab key={'2'} title={'Oragnization'}>
+          <Tab key={'2'} title={'Organization'}>
             <LoginForm formType="organization" />
           </Tab>
         </Tabs>

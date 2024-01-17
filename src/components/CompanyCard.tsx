@@ -7,7 +7,7 @@ import Link from 'next/link'
 type Props = {
   company: OrganizationUser
 }
-const UserCard = ({ company }: Props) => {
+const CompanyCard = ({ company }: Props) => {
   return (
     <Link href={`/companies/${company.username}`}>
       <Card className="w-full bg-card-bg bg-opacity-50">
@@ -32,4 +32,4 @@ const UserCard = ({ company }: Props) => {
   )
 }
 
-export default UserCard
+export default CompanyCard
