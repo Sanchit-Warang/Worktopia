@@ -1,4 +1,4 @@
-import { JobPostFormValues, JobProfile } from '@/types/types'
+import { JobPostFormValues, JobProfile, JobApplication } from '@/types/types'
 import { apiSlice } from '@/redux/api/apiSlice'
 
 export const jobProfileApiSlice = apiSlice.injectEndpoints({
@@ -17,17 +17,21 @@ export const jobProfileApiSlice = apiSlice.injectEndpoints({
         url: '/jobs/jobprofile',
         params,
       }),
+      keepUnusedDataFor: Infinity,
       providesTags: ['JobProfile'],
     }),
     getJobProfile: builder.query<JobProfile, string | string[]>({
       query: (jobId) => ({
         url: `/jobs/jobprofile/${jobId}`,
       }),
+      keepUnusedDataFor: Infinity,
     }),
     getAppliedJobProfile: builder.query<JobProfile[], string | string[]>({
       query: (username) => ({
         url: `/applicants/user_applied_jobs/${username}`,
       }),
+      keepUnusedDataFor: Infinity,
+      providesTags: ['JobProfile']
     }),
     createJobProfile: builder.mutation<any, JobPostFormValues>({
       query: (data) => ({
@@ -50,9 +54,45 @@ export const jobProfileApiSlice = apiSlice.injectEndpoints({
       query: () => ({
         url: `/jobs/jobprofile`,
       }),
+      keepUnusedDataFor: Infinity,
       transformResponse: (response: JobProfile[], meta, arg) => {
         return response.filter((job) => job.organization_name === arg)
       },
+    }),
+    getHasAppliedToJobProfile: builder.query<
+      {
+        has_applied: boolean
+      },
+      string
+    >({
+      query: (jobId) => ({
+        url: `/applicants/status/${jobId}`,
+      }),
+      keepUnusedDataFor: Infinity,
+      providesTags: (result, error, arg) => [{ type: 'Application', id: arg }],
+    }),
+    createJobProfileApplication: builder.mutation<
+      JobApplication,
+      {
+        job_profile: number
+        job_seeker: number | undefined
+      }
+    >({
+      query: (data) => ({
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        url: '/applicants/application',
+        method: 'POST',
+        body: JSON.stringify({
+          ...data,
+          status: 'pending',
+        }),
+      }),
+      invalidatesTags: (result, error, arg) => [
+        { type: 'Application', id: arg.job_profile },
+        {type: 'JobProfile'}
+      ],
     }),
   }),
 })
@@ -63,4 +103,6 @@ export const {
   useGetAppliedJobProfileQuery,
   useCreateJobProfileMutation,
   useGetPostedJobProfileQuery,
+  useGetHasAppliedToJobProfileQuery,
+  useCreateJobProfileApplicationMutation
 } = jobProfileApiSlice

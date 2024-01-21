@@ -7,10 +7,11 @@ import {
   useOrgLoginMutation,
 } from '@/redux/features/auth/authApiSlice'
 import { setCredentials } from '@/redux/features/auth/authSlice'
-import { redirect } from 'next/navigation'
 import { LoginFormValues } from '@/types/types'
 import Link from 'next/link'
 import { apiSlice } from '@/redux/api/apiSlice'
+import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 
 const validate = (values: LoginFormValues) => {
   const errors: Partial<LoginFormValues> = {}
@@ -32,6 +33,7 @@ type Props = {
 }
 
 const LoginForm = ({ formType }: Props) => {
+  const router = useRouter()
   const dispatch = useAppDispatch()
   const [seekerLogin] = useSeekerLoginMutation()
   const [orgLogin] = useOrgLoginMutation()
@@ -42,24 +44,27 @@ const LoginForm = ({ formType }: Props) => {
     values: LoginFormValues,
     { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
   ) => {
-    console.log(values)
     let userData
-    if (formType === 'seeker') {
-      userData = await seekerLogin(values).unwrap()
-    } else {
-      userData = await orgLogin(values).unwrap()
+    try {
+      if (formType === 'seeker') {
+        userData = await seekerLogin(values).unwrap()
+      } else {
+        userData = await orgLogin(values).unwrap()
+      }
+      dispatch(
+        setCredentials({
+          user: userData.user,
+          accessToken: userData.access,
+          refreshToken: userData.refresh,
+        })
+      )
+      toast.success('Logged in')
+      dispatch(apiSlice.util.resetApiState())
+      router.replace('/job-list')
+    } catch (error: any) {
+      toast.error(error?.data?.error ?? 'Something went wrong')
     }
-    console.log(userData)
-    dispatch(
-      setCredentials({
-        user: userData.user,
-        accessToken: userData.access,
-        refreshToken: userData.refresh,
-      })
-    )
-    dispatch(apiSlice.util.resetApiState())
     setSubmitting(false)
-    redirect('/job-list')
   }
 
   return (

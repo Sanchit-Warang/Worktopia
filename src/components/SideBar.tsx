@@ -73,8 +73,8 @@ const SideBar = () => {
             Post a Job
           </ListboxItem>
           <ListboxItem
-            key="4"
-            className="my-1 py-3 bg-primary-inactive hidden"
+            key="connections/connections"
+            className={`my-1 py-3 bg-primary-inactive ${userType === 'Seeker'? '': 'hidden'}`}
             startContent={<FontAwesomeIcon icon={faHandshake} className="" />}
           >
             Connections

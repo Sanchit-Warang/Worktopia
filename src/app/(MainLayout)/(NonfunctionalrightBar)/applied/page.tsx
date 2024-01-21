@@ -5,6 +5,8 @@ import JobsAppliedAndPostedTabs from '@/components/ui/JobsAppliedAndPostedTabs'
 import useGetUserAndType from '@/hooks/useGetUserAndType'
 import { WithAuthSeeker } from '@/components/HOC/WithAuthSeeker'
 import HeadingWrapper from '@/components/layouts/HeadingWrapper'
+import HiddenSortButton from '@/components/ui/HiddenSortButton'
+import HiddenSearch from '@/components/ui/HiddenSearch'
 
 const AppliedPage = () => {
   const { user, userType } = useGetUserAndType()
@@ -15,15 +17,13 @@ const AppliedPage = () => {
 
   return (
     <>
-      <HeadingWrapper h={'21%'}>
-        <div className="h-full flex  flex-col justify-between">
-          <div className="p-3 border-b-1 border-borderr">
-            <p className="text-lg">Applied jobs</p>
-          </div>
-          <JobsAppliedAndPostedTabs />
-        </div>
+      <HeadingWrapper>
+        <p className="text-lg">Applied jobs</p>
+        <HiddenSortButton />
       </HeadingWrapper>
-      <ScrollableContentWrapper h={'79%'}>
+      <HiddenSearch />  
+      <JobsAppliedAndPostedTabs />
+      <ScrollableContentWrapper>
         <AppliedJobList username={user?.username} />
       </ScrollableContentWrapper>
     </>

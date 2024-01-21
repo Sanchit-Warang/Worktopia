@@ -6,6 +6,8 @@ import { useGetApplicationsQuery } from '@/redux/features/users/usersApiSlice'
 import { useParams } from 'next/navigation'
 import { HideApplicantList } from '@/components/HOC/HideApplicantList'
 import UserListWithoutFetch from '@/components/ui/UserListWithoutFetch'
+import HeadingWrapper from '@/components/layouts/HeadingWrapper'
+import HiddenSortButton from '@/components/ui/HiddenSortButton'
 
 const ApplicantListPage = () => {
   const { Id } = useParams()
@@ -23,12 +25,13 @@ const ApplicantListPage = () => {
 
   return (
     <>
-      <div className="p-3 border-b-1 border-borderr">
-        <p className="text-lg">
+      <HeadingWrapper>
+        <span>
           Applicant List for {jobprofile.role} at {jobprofile.organization_name}
-        </p>
-      </div>
-      <UserListWithoutFetch users={applications}/>
+        </span>
+        <HiddenSortButton />
+      </HeadingWrapper>
+      <UserListWithoutFetch users={applications} />
     </>
   )
 }

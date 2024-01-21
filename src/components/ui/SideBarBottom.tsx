@@ -15,19 +15,19 @@ const SideBarBottom = () => {
   return (
     <div className="h-[7dvh] w-full flex flex-col justify-center sm:block md:hidden border-t-1 border-borderr py-2">
       <div className="w-full flex gap-4 justify-center items-center">
-        <Link className='p-3 bg-primary-inactive hover:bg-primary' href={'/job-list'}>
+        <Link className='p-3 bg-primary-inactive rounded hover:bg-primary' href={'/job-list'}>
           <FontAwesomeIcon icon={faBriefcase} className="" />
         </Link>
-        <Link className='p-3 bg-primary-inactive hover:bg-primary' href={'/users'}>
+        <Link className='p-3 bg-primary-inactive rounded hover:bg-primary' href={'/users'}>
           <FontAwesomeIcon icon={faUsers} className="" />
         </Link>
-        <Link className='p-3 bg-primary-inactive hover:bg-primary' href={'/companies'}>
+        <Link className='p-3 bg-primary-inactive rounded hover:bg-primary' href={'/companies'}>
           <FontAwesomeIcon icon={faBuilding} className="" />
         </Link>
-        <Link className='p-3 bg-primary-inactive hover:bg-primary' href={'/job-list'}>
+        <Link className='p-3 bg-primary-inactive rounded hover:bg-primary' href={'/job-list'}>
           <FontAwesomeIcon icon={faHandshake} className="" />
         </Link>
-        <Link className='p-3 bg-primary-inactive hover:bg-primary' href={'/job-list'}>
+        <Link className='p-3 bg-primary-inactive rounded hover:bg-primary' href={'/job-list'}>
           <FontAwesomeIcon icon={faUser} className="" />
         </Link>
       </div>

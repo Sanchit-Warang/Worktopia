@@ -7,19 +7,23 @@ export const UsersApiSlice = apiSlice.injectEndpoints({
       query: () => ({
         url: `/account/create/jobseeker`,
       }),
+      keepUnusedDataFor: Infinity,
       providesTags: ['User'],
     }),
     getUser: builder.query<JobSeekerUser, string | string[]>({
       query: (userId) => ({
         url: `/account/jobseeker/${userId}`,
       }),
+      keepUnusedDataFor: Infinity,
     }),
     getApplications: builder.query<JobSeekerUser[], string | string[]>({
       query: (Id) => ({
         url: `/applicants/job_applications/${Id}`,
       }),
+      keepUnusedDataFor: Infinity,
     }),
   }),
 })
 
-export const { useGetUsersQuery, useGetUserQuery, useGetApplicationsQuery } = UsersApiSlice
+export const { useGetUsersQuery, useGetUserQuery, useGetApplicationsQuery } =
+  UsersApiSlice

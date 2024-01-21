@@ -1,12 +1,29 @@
 'use client'
 import { useParams } from 'next/navigation'
-import { ScrollShadow, CircularProgress, Avatar } from '@nextui-org/react'
+import {
+  ScrollShadow,
+  CircularProgress,
+  Avatar,
+  Button,
+} from '@nextui-org/react'
 import Skills from '@/components/Skills'
-import { useGetJobProfileQuery } from '@/redux/features/jobProfile/jobProfileApiSlice'
+import {
+  useGetJobProfileQuery,
+  useGetHasAppliedToJobProfileQuery,
+  useCreateJobProfileApplicationMutation,
+} from '@/redux/features/jobProfile/jobProfileApiSlice'
+import useGetUserAndType from '@/hooks/useGetUserAndType'
 import formatDate from '@/utils/formatDate'
+import toast from 'react-hot-toast'
+
 const JobPage = () => {
   const { jobId } = useParams()
+  const { user } = useGetUserAndType()
+  const jobIdAsString = Array.isArray(jobId) ? jobId[0] : jobId
   const { data: jobProfile, isLoading, error } = useGetJobProfileQuery(jobId)
+  const application = useGetHasAppliedToJobProfileQuery(jobIdAsString)
+  const [createApplication, { isLoading: createApplicationLoading }] =
+    useCreateJobProfileApplicationMutation()
 
   if (isLoading || jobProfile === undefined) {
     return (
@@ -20,6 +37,18 @@ const JobPage = () => {
     return <div>error</div>
   }
 
+  const handleApplicationClick = async () => {
+    try {
+      await createApplication({
+        job_profile: +jobIdAsString,
+        job_seeker: user?.id,
+      })
+      toast.success('Applied Successfully')
+    } catch (error: any) {
+      toast.error(error?.data?.error ?? 'Something went wrong')
+    }
+  }
+
   return (
     <>
       <div className=" h-[8%] items-center p-3 border-b-1 border-borderr">
@@ -30,12 +59,40 @@ const JobPage = () => {
         className="h-[92%] scrollbar scrollbar-thumb-primary scrollbar-thin scrollbar-track-primary-inactive"
       >
         <div className="bg-card-bg p-6">
-          <div className="border-b-2 border-borderr pb-3">
+          <div className="flex items-center justify-between border-b-2 border-borderr pb-3">
             <Avatar
-            isBordered color='success'
+              isBordered
+              color="success"
               size="lg"
               src={`https://jobcom-media-1.s3.amazonaws.com/${jobProfile?.organization_profile_pic}`}
             />
+            {application.data && (
+              <>
+                {application.data.has_applied ? (
+                  <Button
+                    className="h-[1.5rem]"
+                    color="success"
+                    variant="flat"
+                    isDisabled={application.data.has_applied}
+                  >
+                    Applied
+                  </Button>
+                ) : (
+                  <Button
+                    className="h-[1.5rem]"
+                    color="success"
+                    variant="shadow"
+                    isDisabled={application.data.has_applied}
+                    isLoading={createApplicationLoading}
+                    onClick={() => {
+                      handleApplicationClick()
+                    }}
+                  >
+                    Apply
+                  </Button>
+                )}
+              </>
+            )}
           </div>
           <div className="mt-4">
             <div className="text-lg my-2">{jobProfile?.role}</div>

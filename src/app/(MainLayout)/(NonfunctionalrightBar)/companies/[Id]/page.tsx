@@ -6,6 +6,9 @@ import { faGlobe } from '@fortawesome/free-solid-svg-icons'
 import JobList from '@/components/JobList'
 import { useGetCompanyQuery } from '@/redux/features/company/companyApiSlice'
 import Link from 'next/link'
+import HeadingWrapper from '@/components/layouts/HeadingWrapper'
+import HiddenSortButton from '@/components/ui/HiddenSortButton'
+import ScrollableContentWrapper from '@/components/layouts/ScrollableContentWrapper'
 
 const CompanyPage = () => {
   const { Id } = useParams()
@@ -25,13 +28,11 @@ const CompanyPage = () => {
 
   return (
     <>
-      <div className=" h-[8%] items-center p-3 border-b-1 border-borderr">
-        <span className="text-2xl">@{organization.username}</span>
-      </div>
-      <ScrollShadow
-        size={100}
-        className="h-[92%] scrollbar scrollbar-thumb-primary scrollbar-thin scrollbar-track-primary-inactive"
-      >
+      <HeadingWrapper>
+        <span>@{organization.username}</span>
+        <HiddenSortButton />
+      </HeadingWrapper>
+      <ScrollableContentWrapper>
         <div className="bg-card-bg p-6">
           <div className="flex flex-col items-center mx-[15%]">
             <div className="my-2">
@@ -64,7 +65,7 @@ const CompanyPage = () => {
         <div className="mt-6  mx-10">
           <div className="text-lg text-center">About {organization.name}</div>
           <br />
-          <p className='text-justify'>{organization.overview}</p>
+          <p className="text-justify">{organization.overview}</p>
         </div>
         <div className="my-8">
           <div className="text-center text-lg my-6">
@@ -81,7 +82,7 @@ const CompanyPage = () => {
             sort="recent"
           />
         </div>
-      </ScrollShadow>
+      </ScrollableContentWrapper>
     </>
   )
 }

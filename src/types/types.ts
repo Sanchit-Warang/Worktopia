@@ -97,6 +97,23 @@ type JobProfile = {
   skills_required: string[]
 }
 
+type JobApplication = {
+  id: number
+  status: string
+  application_date: string
+  updated_at: string
+  job_profile: number
+  job_seeker: number
+}
+
+type Connection = {
+  id: number
+  user1: number
+  user2: number
+  status: string
+  established_at: string
+}
+
 export type {
   JobSeekerUser,
   AuthState,
@@ -108,5 +125,7 @@ export type {
   OrganizationUser,
   OrgRegistrationFromValues,
   JobProfile,
-  JobPostFormValues
+  JobPostFormValues,
+  JobApplication,
+  Connection
 }

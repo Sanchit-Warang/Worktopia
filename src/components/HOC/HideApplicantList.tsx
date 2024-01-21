@@ -3,6 +3,7 @@ import useGetUserAndType from '@/hooks/useGetUserAndType'
 import { useParams } from 'next/navigation'
 import { useEffect } from 'react'
 import { useGetJobProfileQuery } from '@/redux/features/jobProfile/jobProfileApiSlice'
+import toast from 'react-hot-toast'
 
 export const HideApplicantList = (Component: any) => {
   return function HideApplicantList(props: any) {

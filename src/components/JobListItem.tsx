@@ -15,55 +15,55 @@ type Props = {
 const JobListItem = ({ jobProfile }: Props) => {
   const path = usePathname()
   const router = useRouter()
-  const item = (
-    <div className="flex flex-wrap gap-4 items-center p-3">
-      <Avatar
-        isBordered
-        color="success"
-        src={`https://jobcom-media-1.s3.amazonaws.com/${jobProfile.organization_profile_pic}`}
-        size="lg"
-      />
-      <div>
-        <div className="text-md">
-          {jobProfile.role}{' '}
-          <span className="text-copy-lighter">
-            at {jobProfile.organization_name}
-          </span>
-        </div>
-        <div className="text-sm text-copy-lighter">
-          {jobProfile.employee_type} • ₹{jobProfile.salary} LPA •{' '}
-          {jobProfile.required_experience}+ years of experience • Posted on{' '}
-          {formatDate(jobProfile.created_at)}
-        </div>
-        <div className="m-1">
-          <Skills delay={0.3} all={false} skills={jobProfile.skills_required} />
-        </div>
-      </div>
-      {path.includes('/jobposted') && (
+  return (
+    <Link href={`/job/${jobProfile.id}`}>
+      <div className="flex flex-wrap gap-4 items-center p-3">
+        <Avatar
+          isBordered
+          color="success"
+          src={`https://jobcom-media-1.s3.amazonaws.com/${jobProfile.organization_profile_pic}`}
+          size="lg"
+        />
         <div>
-          <Button
-            size="sm"
-            className="h-[1.5rem]"
-            variant="bordered"
-            color="primary"
-            onClick={() => {
-              router.replace(`/applicantlist/${jobProfile.id}`)
-            }}
-          >
-            See Applicants
-          </Button>
+          <div className="text-md">
+            {jobProfile.role}{' '}
+            <span className="text-copy-lighter">
+              at {jobProfile.organization_name}
+            </span>
+          </div>
+          <div className="text-sm text-copy-lighter">
+            {jobProfile.employee_type} • ₹{jobProfile.salary} LPA •{' '}
+            {jobProfile.required_experience}+ years of experience • Posted on{' '}
+            {formatDate(jobProfile.created_at)}
+          </div>
+          <div className="m-1">
+            <Skills
+              delay={0.3}
+              all={false}
+              skills={jobProfile.skills_required}
+            />
+          </div>
         </div>
-      )}
-    </div>
+        {path.includes('/jobposted') && (
+          <div>
+            <Button
+              size="sm"
+              className="h-[1.5rem]"
+              variant="bordered"
+              color="primary"
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                router.replace(`/applicantlist/${jobProfile.id}`)
+              }}
+            >
+              See Applicants
+            </Button>
+          </div>
+        )}
+      </div>
+    </Link>
   )
-
-  const showApplicantButton = path.includes('/jobposted')
-
-  if (!showApplicantButton) {
-    return <Link href={`/job/${jobProfile.id}`}>{item}</Link>
-  } else {
-    return item
-  }
 }
 
 export default JobListItem

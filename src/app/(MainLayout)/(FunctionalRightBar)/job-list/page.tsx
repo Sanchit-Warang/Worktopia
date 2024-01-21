@@ -19,7 +19,6 @@ import { useState } from 'react'
 
 import JobsAppliedAndPostedTabs from '@/components/ui/JobsAppliedAndPostedTabs'
 
-
 type Filters = {
   search: string
   role: string
@@ -52,56 +51,54 @@ const Page = () => {
     <>
       <MainContentWrapper>
         <HeadingWrapper h={'21%'}>
-          <div className="flex items-center p-3 border-b-1 border-borderr">
-            <span>Jobs</span>
-            <Dropdown>
-              <DropdownTrigger>
-                <Button
-                  className="ml-auto"
-                  size="sm"
-                  color="primary"
-                  variant="light"
-                >
-                  <FontAwesomeIcon icon={faSort} className="mr-1" />
-                  <span>Sort</span>
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                aria-label="Jobs Sort"
-                onAction={(key) => {
-                  if (
-                    key === 'recent' ||
-                    key === 'lowToHigh' ||
-                    key === 'highToLow'
-                  ) {
-                    setSort(key)
-                  }
-                }}
-              >
-                <DropdownItem key="recent">Recent</DropdownItem>
-                <DropdownItem key="lowToHigh">Salary Low-High</DropdownItem>
-                <DropdownItem key="highToLow">Salary High-Low</DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-          </div>
-          <div className=" border-borderr border-b-2 py-2">
-            <div className="w-[90%] mx-auto">
-              <Input
-                name="search"
-                type="text"
-                isClearable
+          <span>Jobs</span>
+          <Dropdown>
+            <DropdownTrigger>
+              <Button
+                className="ml-auto"
                 size="sm"
-                // labelPlacement='outside-left'
-                value={filters.search}
-                onChange={handleInputChange}
                 color="primary"
-                label="Search"
-                endContent={<FontAwesomeIcon icon={faMagnifyingGlass} />}
-              />
-            </div>
-          </div>
-          <JobsAppliedAndPostedTabs/>
+                variant="light"
+              >
+                <FontAwesomeIcon icon={faSort} className="mr-1" />
+                <span>Sort</span>
+              </Button>
+            </DropdownTrigger>
+            <DropdownMenu
+              aria-label="Jobs Sort"
+              onAction={(key) => {
+                if (
+                  key === 'recent' ||
+                  key === 'lowToHigh' ||
+                  key === 'highToLow'
+                ) {
+                  setSort(key)
+                }
+              }}
+            >
+              <DropdownItem key="recent">Recent</DropdownItem>
+              <DropdownItem key="lowToHigh">Salary Low-High</DropdownItem>
+              <DropdownItem key="highToLow">Salary High-Low</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
         </HeadingWrapper>
+        <div className="py-2">
+          <div className="w-[90%] mx-auto">
+            <Input
+              name="search"
+              type="text"
+              isClearable
+              size="sm"
+              // labelPlacement='outside-left'
+              value={filters.search}
+              onChange={handleInputChange}
+              color="primary"
+              label="Search"
+              endContent={<FontAwesomeIcon icon={faMagnifyingGlass} />}
+            />
+          </div>
+        </div>
+        <JobsAppliedAndPostedTabs />
         <ScrollableContentWrapper h={'79%'}>
           <JobList filters={filters} sort={sort} />
         </ScrollableContentWrapper>

@@ -2,6 +2,7 @@
 import { redirect } from 'next/navigation'
 import useGetUserAndType from '@/hooks/useGetUserAndType'
 import { useEffect } from 'react'
+import toast from 'react-hot-toast'
 
 export const WithAuthOrg = (Component: any) => {
   return function WithAuthOrg(props: any) {

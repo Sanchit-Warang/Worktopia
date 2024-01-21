@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation'
 import { useAppDispatch } from '@/redux/hooks'
 import { logOut } from '@/redux/features/auth/authSlice'
 import { apiSlice } from '@/redux/api/apiSlice'
+import toast from 'react-hot-toast'
 
 const AvatarAndLogin = () => {
   const router = useRouter()
@@ -31,6 +32,7 @@ const AvatarAndLogin = () => {
     dispatch(logOut())
     dispatch(apiSlice.util.resetApiState())
     router.replace('/job-list')
+    toast.success('Logged out')
   }
 
   return (

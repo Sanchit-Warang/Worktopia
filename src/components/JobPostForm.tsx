@@ -7,6 +7,7 @@ import { useCreateJobProfileMutation } from '@/redux/features/jobProfile/jobProf
 import { JobPostFormValues } from '@/types/types'
 import { useRouter } from 'next/navigation'
 import useGetUserAndType from '@/hooks/useGetUserAndType'
+import toast from 'react-hot-toast'
 
 const validate = (values: JobPostFormValues) => {}
 
@@ -23,8 +24,9 @@ const JobPostForm = () => {
     try {
       await createJob(values).unwrap()
       router.replace('/job-list')
-    } catch (error) {
-      console.log(error)
+      toast.success('Job Posted')
+    } catch (error: any) {
+      toast.error(error?.data?.error ?? 'Something went wrong')
     }
     setSubmitting(false)
   }

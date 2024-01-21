@@ -18,7 +18,7 @@ import { useState } from 'react'
 import Skills from './Skills'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
-import formDataConvert from '@/utils/formDataConvert'
+import toast from 'react-hot-toast'
 
 const SeekerRegistrationForm = () => {
   const router = useRouter()
@@ -54,15 +54,16 @@ const SeekerRegistrationForm = () => {
         no_of_years_experience: values.no_of_years_experience.toString(),
       }).unwrap()
       router.replace('/login')
-    } catch (err) {
-      console.log(err)
+      toast.success('Registered successfully')
+    } catch (err: any) {
+      toast.error(err?.data?.error ?? 'Something went wrong')
     }
     setSubmitting(false)
   }
   //formik end
 
   return (
-    <Card className="w-[90%] md:w-[50%] h-full m-auto bg-card-bg bg-opacity-50">
+    <Card className="w-[90%] md:w-[50%] h-[75vh] m-auto bg-card-bg bg-opacity-50">
       <CardHeader>Fill the below form to create a Profile as seeker</CardHeader>
       <ScrollShadow className="h-[100%] scrollbar scrollbar-thumb-primary scrollbar-thin scrollbar-track-primary-inactive">
         <CardBody>
@@ -73,7 +74,7 @@ const SeekerRegistrationForm = () => {
               password: '',
               firstname: '',
               lastname: '',
-              description:"",
+              description: '',
               no_of_years_experience: 0,
               skills: [],
               phone_number: '',

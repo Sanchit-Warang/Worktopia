@@ -15,7 +15,7 @@ import { OrgRegistrationFromValues } from '@/types/types'
 import { useRouter } from 'next/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
-import formDataConvert from '@/utils/formDataConvert'
+import toast from 'react-hot-toast'
 
 const OrgRegistrationForm = () => {
   const router = useRouter()
@@ -24,48 +24,40 @@ const OrgRegistrationForm = () => {
   // formik start
   const validate = (values: OrgRegistrationFromValues) => {
     // const errors: Partial<OrgRegistrationFromValues> = {};
-
     // // Validate username
     // if (!values.username.trim()) {
     //     errors.username = 'Username is required';
     // }
-
     // // Validate email
     // if (!values.email.trim()) {
     //     errors.email = 'Email is required';
     // } else if (!/^\S+@\S+\.\S+$/.test(values.email)) {
     //     errors.email = 'Invalid email address';
     // }
-
     // // Validate password
     // if (!values.password.trim()) {
     //     errors.password = 'Password is required';
     // } else if (values.password.length < 6) {
     //     errors.password = 'Password must be at least 6 characters';
     // }
-
     // // Validate location
     // if (!values.location.trim()) {
     //     errors.location = 'Location is required';
     // }
-
     // // Validate name
     // if (!values.name.trim()) {
     //     errors.name = 'Name is required';
     // }
-
     // // Validate website
     // if (!values.website.trim()) {
     //     errors.website = 'Website is required';
     // } else if (!/^https?:\/\/\S+$/.test(values.website)) {
     //     errors.website = 'Invalid website URL';
     // }
-
     // // Validate overview
     // if (!values.overview.trim()) {
     //     errors.overview = 'Overview is required';
     // }
-
     // // Validate founded_at
     // if (!values.founded_at.trim()) {
     //     errors.founded_at = 'Founded at is required';
@@ -78,7 +70,6 @@ const OrgRegistrationForm = () => {
     //         errors.founded_at = `Founded year should not be greater than ${currentYear}`;
     //     }
     // }
-
     // return errors;
   }
   const onSubmit = async (
@@ -99,14 +90,15 @@ const OrgRegistrationForm = () => {
       await orgRegistration(values).unwrap()
       // console.log(temp)
       router.replace('/login')
-    } catch (error) {
-      console.log(error)
+      toast.success('Registered successfully')
+    } catch (err: any) {
+      toast.error(err?.data?.error ?? 'Something went wrong')
     }
     setSubmitting(false)
   }
   //formik end
   return (
-    <Card className="w-[90%] md:w-[50%] h-full m-auto bg-card-bg bg-opacity-50">
+    <Card className="w-[90%] md:w-[50%] h-[75vh] m-auto bg-card-bg bg-opacity-50">
       <CardHeader>Fill the below form to create a Profile</CardHeader>
       <ScrollShadow className="h-[100%] scrollbar scrollbar-thumb-secondary scrollbar-thin scrollbar-track-primary-inactive">
         <CardBody>

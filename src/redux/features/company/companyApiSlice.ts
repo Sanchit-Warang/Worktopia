@@ -7,12 +7,14 @@ export const CompanyApiSlice = apiSlice.injectEndpoints({
       query: () => ({
         url: `/account/create/organization`,
       }),
+      keepUnusedDataFor: Infinity,
       providesTags: ['Company']
     }),
     getCompany: builder.query<OrganizationUser, string | string[]>({
       query: (companyId) => ({
         url: `/account/organization/${companyId}`,
       }),
+      keepUnusedDataFor: Infinity,
     }),
   }),
 })

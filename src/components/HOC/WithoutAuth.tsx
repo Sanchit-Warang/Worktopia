@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/types/types'
 import { useEffect } from 'react'
+import toast from 'react-hot-toast'
 
 export const WithoutAuth = (Component: any) => {
   return function WithoutAuth(props: any) {
