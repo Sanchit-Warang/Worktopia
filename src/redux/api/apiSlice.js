@@ -42,11 +42,11 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
       body: JSON.stringify({ refresh: tempRT }),
     });
 
-    // console.log('Sanchit', newAcessTokenRes)
+    console.log('Sanchit', newAcessTokenRes)
 
     if (
-      newAcessTokenRes?.error?.status === 401 ||
-      newAcessTokenRes?.error?.status === 403
+      newAcessTokenRes?.status === 401 ||
+      newAcessTokenRes?.status === 403
     ) {
       console.log('i ran')
       api.dispatch(logOut())

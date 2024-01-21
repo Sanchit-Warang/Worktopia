@@ -17,6 +17,7 @@ import {
 } from '@/redux/features/connections/connectionsApiSlice'
 import useGetUserAndType from '@/hooks/useGetUserAndType'
 import HiddenSortButton from './ui/HiddenSortButton'
+import toast from 'react-hot-toast'
 
 type Props = {
   userId: string | string[]
@@ -27,6 +28,8 @@ const UserDetails = ({ userId }: Props) => {
   const { data: user, isLoading, error } = useGetUserQuery(userId)
   const userIdAsString = Array.isArray(userId) ? userId[0] : userId
   const hasConnection = useGetHasConnectedQuery(userIdAsString)
+  const [createConnection, { isLoading: connectionLoading }] =
+    useCreateConnectionRequestMutation()
 
   if (isLoading) {
     return (
@@ -42,6 +45,20 @@ const UserDetails = ({ userId }: Props) => {
 
   let followButton: JSX.Element | null = null
 
+  const handleFollowClick = async () => {
+    try {
+      await createConnection({
+        user1: u.user ? u.user.id : -1,
+        user2: user.id,
+      })
+      hasConnection.refetch()
+      toast.success('Request Sent')
+    } catch (error: any) {
+      console.log(error)
+      toast.error(error?.data?.error ?? 'Something went wrong')
+    }
+  }
+
   if (u.userType === 'Seeker' && hasConnection.data) {
     if (!hasConnection.data.connection_status) {
       followButton = (
@@ -54,6 +71,10 @@ const UserDetails = ({ userId }: Props) => {
             hasConnection.data.connection_status === 'pending'
           }
           startContent={<FontAwesomeIcon icon={faUserPlus} />}
+          isLoading={connectionLoading}
+          onClick={() => {
+            handleFollowClick()
+          }}
         >
           Follow
         </Button>
