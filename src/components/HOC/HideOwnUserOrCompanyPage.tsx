@@ -11,7 +11,7 @@ export const HideOwnUserOrCompanyPage = (Component: any) => {
     useEffect(() => {
       if (user) {
         if (Id === user.username) {
-          redirect('/')
+          redirect('/job-list')
         }
       }
     }, [user, Id])

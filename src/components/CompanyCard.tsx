@@ -19,7 +19,7 @@ const CompanyCard = ({ company }: Props) => {
           </div>
         </div>
         <div className="h-20 overflow-y-auto text-xs p-3 scrollbar scrollbar-thumb-secondary scrollbar-thin scrollbar-track-primary-inactive mb-1 text-justify">
-          {company.overview}f
+          {company.overview}
         </div>
         <div className="my-1 px-3">
           {/* <Skills delay={0.3} skills={user.skills} all={false}/> */}

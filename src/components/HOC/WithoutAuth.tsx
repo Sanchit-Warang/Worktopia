@@ -16,7 +16,7 @@ export const WithoutAuth = (Component: any) => {
     })
     useEffect(() => {
       if (user) {
-        redirect('/')
+        redirect('/job-list')
       }
     }, [user])
 

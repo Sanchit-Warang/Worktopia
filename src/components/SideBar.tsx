@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import { AcmeLogo } from '@/components/icons/AcmeLogo'
+import Link from 'next/link'
 import useGetUserAndType from '@/hooks/useGetUserAndType'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -13,21 +13,22 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'next/navigation'
 import { Listbox, ListboxItem } from '@nextui-org/react'
-import { useTheme } from 'next-themes'
 
 const SideBar = () => {
   const { user, userType } = useGetUserAndType()
   const router = useRouter()
-  const { theme } = useTheme()
   return (
     <div className="md:block hidden h-[100dvh] w-[30%] p-1 border-x-1 border-borderr text-lg">
       <div className="flex justify-center pt-2">
-        <Image
-          src={'/images/worktopia2.png'}
-          alt="logo"
-          width={100}
-          height={100}
-        />
+        <Link
+         href={'/'}>
+          <Image
+            src={'/images/worktopia2.png'}
+            alt="logo"
+            width={100}
+            height={100}
+          />
+        </Link>
         {/* <AcmeLogo className="w-[23%]" />
         <h1>AI Recruter</h1> */}
       </div>
@@ -64,7 +65,9 @@ const SideBar = () => {
           </ListboxItem>
           <ListboxItem
             key="company/jobposting"
-            className={`my-1 py-3 bg-primary-inactive ${userType === 'Organization'? '': 'hidden'}`}
+            className={`my-1 py-3 bg-primary-inactive ${
+              userType === 'Organization' ? '' : 'hidden'
+            }`}
             // className="my-1 py-3 bg-primary-inactive"
             startContent={
               <FontAwesomeIcon icon={faSheetPlastic} className="" />
@@ -74,7 +77,9 @@ const SideBar = () => {
           </ListboxItem>
           <ListboxItem
             key="connections/connections"
-            className={`my-1 py-3 bg-primary-inactive ${userType === 'Seeker'? '': 'hidden'}`}
+            className={`my-1 py-3 bg-primary-inactive ${
+              userType === 'Seeker' ? '' : 'hidden'
+            }`}
             startContent={<FontAwesomeIcon icon={faHandshake} className="" />}
           >
             Connections

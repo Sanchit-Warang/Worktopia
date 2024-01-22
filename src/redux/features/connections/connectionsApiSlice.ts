@@ -43,9 +43,38 @@ export const ConnectionsApiSlice = apiSlice.injectEndpoints({
         }),
       }),
     }),
+    acceptConnectionRequest: builder.mutation<
+      {
+        message: string
+      },
+      string
+    >({
+      query: (userId) => ({
+        url: `/connections/accept/${userId}`,
+        method: 'PATCH',
+      }),
+      invalidatesTags: ['Connections Received', 'Connections'],
+    }),
+    deleteConnectionRequest: builder.mutation<
+      {
+        message: string
+      },
+      string
+    >({
+      query: (userId) => ({
+        url: `/connections/delete/${userId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Connections Received', 'Connections'],
+    }),
   }),
 })
 
-export const { useGetConnectionsQuery, useGetConnectionsReceivedQuery,
-useCreateConnectionRequestMutation, useGetHasConnectedQuery } =
-  ConnectionsApiSlice
+export const {
+  useGetConnectionsQuery,
+  useGetConnectionsReceivedQuery,
+  useCreateConnectionRequestMutation,
+  useGetHasConnectedQuery,
+  useAcceptConnectionRequestMutation,
+  useDeleteConnectionRequestMutation,
+} = ConnectionsApiSlice

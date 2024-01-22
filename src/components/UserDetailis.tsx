@@ -6,6 +6,7 @@ import {
   faUserPlus,
   faCheck,
   faClock,
+  faUserXmark
 } from '@fortawesome/free-solid-svg-icons'
 import Skills from '@/components/Skills'
 import { useGetUserQuery } from '@/redux/features/users/usersApiSlice'
@@ -14,6 +15,7 @@ import ScrollableContentWrapper from './layouts/ScrollableContentWrapper'
 import {
   useCreateConnectionRequestMutation,
   useGetHasConnectedQuery,
+  useDeleteConnectionRequestMutation,
 } from '@/redux/features/connections/connectionsApiSlice'
 import useGetUserAndType from '@/hooks/useGetUserAndType'
 import HiddenSortButton from './ui/HiddenSortButton'
@@ -30,6 +32,10 @@ const UserDetails = ({ userId }: Props) => {
   const hasConnection = useGetHasConnectedQuery(userIdAsString)
   const [createConnection, { isLoading: connectionLoading }] =
     useCreateConnectionRequestMutation()
+  const [
+    deleteConnectionRequest,
+    { isLoading: deleteConnectionRequestIsLoading },
+  ] = useDeleteConnectionRequestMutation()
 
   if (isLoading) {
     return (
@@ -59,6 +65,17 @@ const UserDetails = ({ userId }: Props) => {
     }
   }
 
+  const handleDeleteClick = async () => {
+    try {
+      await deleteConnectionRequest(user.id.toString())
+      hasConnection.refetch()
+      toast.success('Delete successful')
+    } catch (error: any) {
+      console.log(error)
+      toast.error(error?.data?.error ?? 'Something went wrong')
+    }
+  }
+
   if (u.userType === 'Seeker' && hasConnection.data) {
     if (!hasConnection.data.connection_status) {
       followButton = (
@@ -81,15 +98,31 @@ const UserDetails = ({ userId }: Props) => {
       )
     } else if (hasConnection.data.connection_status === 'accepted') {
       followButton = (
-        <Button
-          className="h-[1.5rem]"
-          color="success"
-          variant="flat"
-          isDisabled={hasConnection.data.connection_status === 'accepted'}
-          startContent={<FontAwesomeIcon icon={faCheck} />}
-        >
-          Following
-        </Button>
+        <>
+          <Button
+            className="h-[1.5rem]"
+            color="success"
+            variant="flat"
+            isDisabled={hasConnection.data.connection_status === 'accepted'}
+            startContent={<FontAwesomeIcon icon={faCheck} />}
+          >
+            Following
+          </Button>
+          <Button
+            isIconOnly
+            size="sm"
+            color="danger"
+            variant="light"
+            isDisabled={deleteConnectionRequestIsLoading}
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              handleDeleteClick()
+            }}
+          >
+            <FontAwesomeIcon icon={faUserXmark} />
+          </Button>
+        </>
       )
     } else if (hasConnection.data.connection_status === 'pending') {
       followButton = (
