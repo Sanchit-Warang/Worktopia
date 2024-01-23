@@ -65,7 +65,7 @@ const Page = () => {
             <Button
               // className="md:hidden"
               size="sm"
-              color="primary"
+              color="secondary"
               variant="light"
               onClick={onOpen}
               className='md:hidden'
