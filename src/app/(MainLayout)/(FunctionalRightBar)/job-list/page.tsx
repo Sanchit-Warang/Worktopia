@@ -12,9 +12,17 @@ import {
   DropdownItem,
   Input,
   Button,
+  Modal,
+  ModalContent,
+  ModalBody,
+  useDisclosure,
 } from '@nextui-org/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass, faSort } from '@fortawesome/free-solid-svg-icons'
+import {
+  faMagnifyingGlass,
+  faSort,
+  faFilter,
+} from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 
 import JobsAppliedAndPostedTabs from '@/components/ui/JobsAppliedAndPostedTabs'
@@ -30,6 +38,7 @@ type Filters = {
 type Sort = 'recent' | 'lowToHigh' | 'highToLow'
 
 const Page = () => {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const [filters, setFilters] = useState<Filters>({
     search: '',
     role: '',
@@ -52,35 +61,43 @@ const Page = () => {
       <MainContentWrapper>
         <HeadingWrapper h={'21%'}>
           <span>Jobs</span>
-          <Dropdown>
-            <DropdownTrigger>
-              <Button
-                className="ml-auto"
-                size="sm"
-                color="primary"
-                variant="light"
-              >
-                <FontAwesomeIcon icon={faSort} className="mr-1" />
-                <span>Sort</span>
-              </Button>
-            </DropdownTrigger>
-            <DropdownMenu
-              aria-label="Jobs Sort"
-              onAction={(key) => {
-                if (
-                  key === 'recent' ||
-                  key === 'lowToHigh' ||
-                  key === 'highToLow'
-                ) {
-                  setSort(key)
-                }
-              }}
+          <div className="ml-auto">
+            <Button
+              // className="md:hidden"
+              size="sm"
+              color="primary"
+              variant="light"
+              onClick={onOpen}
+              className='md:hidden'
             >
-              <DropdownItem key="recent">Recent</DropdownItem>
-              <DropdownItem key="lowToHigh">Salary Low-High</DropdownItem>
-              <DropdownItem key="highToLow">Salary High-Low</DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
+              <FontAwesomeIcon icon={faFilter} className="mr-1" />
+              <span>Filter</span>
+            </Button>
+            <Dropdown>
+              <DropdownTrigger>
+                <Button className="" size="sm" color="primary" variant="light">
+                  <FontAwesomeIcon icon={faSort} className="mr-1" />
+                  <span>Sort</span>
+                </Button>
+              </DropdownTrigger>
+              <DropdownMenu
+                aria-label="Jobs Sort"
+                onAction={(key) => {
+                  if (
+                    key === 'recent' ||
+                    key === 'lowToHigh' ||
+                    key === 'highToLow'
+                  ) {
+                    setSort(key)
+                  }
+                }}
+              >
+                <DropdownItem key="recent">Recent</DropdownItem>
+                <DropdownItem key="lowToHigh">Salary Low-High</DropdownItem>
+                <DropdownItem key="highToLow">Salary High-Low</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
         </HeadingWrapper>
         <div className="py-2">
           <div className="w-[90%] mx-auto">
@@ -102,6 +119,21 @@ const Page = () => {
         <ScrollableContentWrapper h={'79%'}>
           <JobList filters={filters} sort={sort} />
         </ScrollableContentWrapper>
+        <Modal placement="top" isOpen={isOpen} onOpenChange={onOpenChange}>
+          <ModalContent>
+            {(onClose) => (
+              <>
+                <ModalBody className="">
+                  <JobFilters
+                    filters={filters}
+                    handleInputChange={handleInputChange}
+                    setFilters={setFilters}
+                  />
+                </ModalBody>
+              </>
+            )}
+          </ModalContent>
+        </Modal>
       </MainContentWrapper>
       <RightContentWrapper>
         <JobFilters
@@ -111,13 +143,6 @@ const Page = () => {
         />
       </RightContentWrapper>
     </>
-    // <div className="grid grid-cols-10">
-    //     <div className='col-span-2'></div>
-    //     <ScrollShadow className='col-span-6 border-x-2 border-stone-500 h-[93vh] w-[100%]'>
-    //         <JobList/>
-    //     </ScrollShadow>
-    //     <div className='col-span-2'></div>
-    // </div>
   )
 }
 

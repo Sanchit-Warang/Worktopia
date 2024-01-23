@@ -1,8 +1,7 @@
 'use client'
-import cn from 'classnames'
 
-import { Input, Slider, Button, SliderValue } from '@nextui-org/react'
-import { useState } from 'react'
+import { Input, Slider, SliderValue } from '@nextui-org/react'
+
 
 type Filters = {
   search: string
