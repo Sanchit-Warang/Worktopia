@@ -37,12 +37,12 @@ const JobPostForm = () => {
           <Formik
             initialValues={{
               organization_id: user?.id ? user.id : 0,
-              role: 'Full Stack Developer',
-              description: 'We are currently seeking a skilled and motivated Full Stack Developer to join our team, bringing expertise in key technologies including React, Next.js, Redis, and Express. In this role, you will be responsible for the end-to-end development of web applications, focusing on both front-end and back-end components. On the front end, you will leverage React and Next.js to craft visually appealing and user-friendly interfaces, collaborating closely with UI/UX designers. Meanwhile, on the back end, you will employ Express to develop robust server-side logic and implement RESTful APIs for seamless communication between different parts of the application. Database management is a crucial aspect of the role, involving the use of Redis to design efficient and scalable data storage solutions. Integration of these components and performance optimization, including caching strategies, will be key to delivering high-quality, responsive applications. The successful candidate will demonstrate a strong commitment to code quality, conduct thorough testing, and work collaboratively with cross-functional teams. If you are a proactive and innovative developer with proficiency in these technologies, we invite you to apply and contribute to our dynamic and fast-paced work environment.',
-              experience: 3,
-              type: 'Full Time',
-              salary: 5,
-              skills: ['React', 'Nextjs', 'Redis', 'Express'],
+              role: '',
+              description: '',
+              experience: 0,
+              type: '',
+              salary: 0,
+              skills: [],
             }}
             validate={validate}
             onSubmit={onSubmit}
