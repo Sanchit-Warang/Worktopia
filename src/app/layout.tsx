@@ -1,4 +1,4 @@
-'use client'
+// 'use client'
 import './globals.css'
 import { Providers } from './providers'
 // import { useSelector } from 'react-redux';
@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-      <title>Worktopia</title>
+        <title>Worktopia</title>
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css"
@@ -41,8 +41,8 @@ export default function RootLayout({
           {/* <Navvbar modeToggle={modeToggle} mode={mode} /> */}
           {/* <div className="flex mx-auto md:w-[90vw] content  w-full">
             <SideBar /> */}
-            {children}
-            {/* <div className="h-[100vh] w-full border-x-1 border-borderr">
+          <div className="h-[100vh] w-[100vw]">{children}</div>
+          {/* <div className="h-[100vh] w-full border-x-1 border-borderr">
               {children}
             </div>
             <RightBar /> */}
