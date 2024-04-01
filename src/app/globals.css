@@ -33,11 +33,11 @@ body {
   /* background-color: aqua; */
 }
 
-/* @media (max-width: 767px) {
-  body {
+@media (max-width: 767px) {
+  html {
     font-size: 10px;
   }
-} */
+}
 
 .content {
   height: 100%;

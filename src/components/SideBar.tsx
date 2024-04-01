@@ -20,8 +20,7 @@ const SideBar = () => {
   return (
     <div className="md:block hidden h-[100dvh] w-[30%] p-1 border-x-1 border-borderr text-lg">
       <div className="flex justify-center pt-2">
-        <Link
-         href={'/'}>
+        <Link href={'/'}>
           <Image
             src={'/images/worktopia2.png'}
             alt="logo"

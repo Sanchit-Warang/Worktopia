@@ -46,6 +46,7 @@ const JobList = ({ filters, sort }: Props) => {
     data: jobProfiles,
     isLoading,
     error,
+    refetch: refetchJobProfiles,
   } = useGetJobProfilesQuery(cleanFilters(filters))
 
   if (isLoading) {
@@ -57,6 +58,10 @@ const JobList = ({ filters, sort }: Props) => {
   }
 
   if (error) {
+    const err = error as any
+    if(err?.data ==='Internal Server Error'){
+      refetchJobProfiles()
+    }
     return <div>error</div>
   }
 
