@@ -64,7 +64,7 @@ const JobPage = () => {
               isBordered
               color="success"
               size="lg"
-              src={`https://jobcom-media-1.s3.amazonaws.com/${jobProfile?.organization_profile_pic}`}
+              src={`https://res.cloudinary.com/dlkqz4nqp/image/upload/v1/${jobProfile?.organization_profile_pic}`}
             />
             {application.data && (
               <>
