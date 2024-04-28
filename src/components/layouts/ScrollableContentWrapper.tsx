@@ -15,7 +15,7 @@ const ScrollableContentWrapper = ({ children, h = '83%' }: Props) => {
       className={twMerge(
         // `h-[${h}]`,
         `scrollbar scrollbar-thumb-primary scrollbar-thin scrollbar-track-primary-inactive`,
-        'flex-grow'
+        'flex-grow h-1'
       )}
     >
       {children}
